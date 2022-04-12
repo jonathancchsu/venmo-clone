@@ -1,6 +1,13 @@
+from app.models.workspace import Workspace
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Integer, ForeignKey, String, DateTime
+from sqlalchemy.sql import func, table, column
+from sqlalchemy.orm import relationship, Session
+from alembic import op
+from sqlalchemy.orm import Session
 
 
 class User(db.Model, UserMixin):
@@ -10,6 +17,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
     @property
     def password(self):
