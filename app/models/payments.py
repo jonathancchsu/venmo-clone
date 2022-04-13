@@ -15,6 +15,7 @@ class Payment(db.Model):
   receiver_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
   title = db.Column(String, nullable=False)
   amount = db.Column(Float, nullable=False)
+  privacy = db.Column(String, nullable=False)
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
@@ -25,6 +26,7 @@ class Payment(db.Model):
       'receiver_id': self.receiver_id,
       'title': self.title,
       'amount': self.amount,
+      'privacy': self.privacy,
       'created_at': self.created_at,
       'updated_at': self.updated_at,
     }
