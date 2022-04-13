@@ -19,4 +19,4 @@ def seed_payments():
 
 def undo_payments():
   db.session.execute('TRUNCATE payments RESTART IDENTITY CASCADE;')
-  db.sessin.commit()
+  db.session.commit()

@@ -1,8 +1,9 @@
+from email.policy import default
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, ForeignKey, String, DateTime
+from sqlalchemy import Integer, ForeignKey, String, DateTime, Float
 from sqlalchemy.sql import func, table, column
 from sqlalchemy.orm import relationship, Session
 from alembic import op
@@ -16,13 +17,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    balance = db.Column(Float, default=0.00, nullable=False)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
-
-    liked_post = relationship('Like', backref='owner', cascade='all, delete')
-    payments_created = relationship('Payment', backref='sender', cascade='all, delete')
-    requests_created = relationship('Request', backref='receiver', cascade='all, delete')
-    friends = relationship('Social', backref='friend', cascade='all, delete')
 
     @property
     def password(self):
@@ -39,8 +36,5 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
-            'liked_post': [
-                {},
-            ]
+            'email': self.email
         }

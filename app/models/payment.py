@@ -8,7 +8,7 @@ from .db import db
 
 
 class Payment(db.Model):
-  __tablename__ = 'paymentss'
+  __tablename__ = 'payments'
 
   id = db.Column(Integer, primary_key=True)
   sender_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
@@ -19,6 +19,7 @@ class Payment(db.Model):
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
+
   def to_dict(self):
     return {
       'id': self.id,
@@ -27,6 +28,8 @@ class Payment(db.Model):
       'title': self.title,
       'amount': self.amount,
       'privacy': self.privacy,
+      'comments': [{comment.content for comment in self.comments}],
+      'likes': len(self.likes),
       'created_at': self.created_at,
       'updated_at': self.updated_at,
     }
