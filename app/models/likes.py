@@ -11,8 +11,8 @@ class Like(db.Model):
   __tablename__ = 'likes'
 
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
-  payment_id = db.Column(Integer, ForeignKey('payment.id', nullable=False))
+  user_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
+  payment_id = db.Column(Integer, ForeignKey('payments.id', nullable=False))
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
   def to_dict(self):

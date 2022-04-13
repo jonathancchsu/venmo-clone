@@ -12,8 +12,8 @@ class Request(db.Model):
   __tablename__ = 'requests'
 
   id = db.Column(Integer, primary_key=True)
-  sender_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
-  receiver_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
+  sender_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
+  receiver_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
   title = db.Column(String, nullable=False)
   amount = db.Column(Float, nullable=False)
   privacy = db.Column(String, nullable=False)
