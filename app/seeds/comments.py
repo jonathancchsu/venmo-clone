@@ -1,4 +1,4 @@
-from app.models import db, Comment, payments
+from app.models import db, Comment
 
 def seed_comments():
   comments = [
