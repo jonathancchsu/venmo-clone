@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     liked_post = relationship('Like', backref='owner', cascade='all, delete')
     payments_created = relationship('Payment', backref='sender', cascade='all, delete')
     requests_created = relationship('Request', backref='receiver', cascade='all, delete')
-    friends_with = relationship('Social', backref='friend', cascade='all, delete')
+    friends = relationship('Social', backref='friend', cascade='all, delete')
 
     @property
     def password(self):
@@ -39,5 +39,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'liked_post': [
+                {},
+            ]
         }
