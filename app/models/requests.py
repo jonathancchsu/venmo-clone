@@ -1,3 +1,4 @@
+from xmlrpc.client import Boolean
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, ForeignKey, String, DateTime
 from sqlalchemy.sql import func, table, column
@@ -7,12 +8,13 @@ from sqlalchemy.orm import Session
 from .db import db
 
 
-class Requests(db.Model):
+class Request(db.Model):
   __tablename__ = 'requests'
 
   id = db.Column(Integer, primary_key=True)
   sender_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
   receiver_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
+  completed = db.COlumn(Boolean, nullable=False)
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 

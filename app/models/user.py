@@ -19,6 +19,11 @@ class User(db.Model, UserMixin):
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
+    liked_post = relationship('Like', backref='owner', cascade='all, delete')
+    payments_created = relationship('Payment', backref='sender', cascade='all, delete')
+    requests_created = relationship('Request', backref='receiver', cascade='all, delete')
+    friends_with = relationship('Social', backref='friend', cascade='all, delete')
+
     @property
     def password(self):
         return self.hashed_password
