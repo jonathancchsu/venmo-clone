@@ -2,12 +2,12 @@ from app.models import db, Request
 
 def seed_requests():
   requests = [
-    {'sender_id': 1, 'receiver_id': 2, 'title': 'ktown', 'amount': 30.50, 'privacy': 'public', 'completed': False,},
-    {'sender_id': 1, 'receiver_id': 3, 'title': 'coffee', 'amount': 3.00, 'privacy': 'public', 'completed': False,},
-    {'sender_id': 2, 'receiver_id': 1, 'title': 'lunch', 'amount': 9.95, 'privacy': 'public', 'completed': False,},
-    {'sender_id': 2, 'receiver_id': 3, 'title': 'wine', 'amount': 200.00, 'privacy': 'public', 'completed': False,},
-    {'sender_id': 3, 'receiver_id': 1, 'title': 'boba', 'amount': 6.95, 'privacy': 'public', 'completed': False,},
-    {'sender_id': 3, 'receiver_id': 2, 'title': 'watch', 'amount': 500.00, 'privacy': 'public', 'completed': False,},
+    {'sender_id': 1, 'receiver_id': 2, 'title': 'ktown', 'amount': 30.50, 'privacy': 'public',},
+    {'sender_id': 1, 'receiver_id': 3, 'title': 'coffee', 'amount': 3.00, 'privacy': 'public',},
+    {'sender_id': 2, 'receiver_id': 1, 'title': 'lunch', 'amount': 9.95, 'privacy': 'public',},
+    {'sender_id': 2, 'receiver_id': 3, 'title': 'wine', 'amount': 200.00, 'privacy': 'public',},
+    {'sender_id': 3, 'receiver_id': 1, 'title': 'boba', 'amount': 6.95, 'privacy': 'public',},
+    {'sender_id': 3, 'receiver_id': 2, 'title': 'watch', 'amount': 500.00, 'privacy': 'public',},
   ]
 
   for request in requests:

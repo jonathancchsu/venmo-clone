@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
 
-bp = Blueprint('likes', __name__, url_prefix='likes')
+bp = Blueprint('likes', __name__)
 @bp.route('/', methods=['GET', 'POST'])
 def likes():
   data = request.json
@@ -16,7 +16,7 @@ def likes():
   db.session.commit()
   return like.to_dict()
 
-@bp.routes('/<int:like_id>', methods=['DELETE'])
+@bp.route('/<int:like_id>', methods=['DELETE'])
 def likes_delete(like_id):
   like = Like.query.get(like_id)
   db.session.delete(like)

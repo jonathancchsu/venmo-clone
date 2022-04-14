@@ -4,8 +4,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
 
-bp = Blueprint('requests', __name__, url_prefix='requests')
-@bp.routes('/', methods=['GET', 'POST'])
+bp = Blueprint('requests', __name__)
+@bp.route('/', methods=['GET', 'POST'])
 def request_get_post():
   if request.method == 'GET':
     requests = Request.query.all()
@@ -22,14 +22,13 @@ def request_get_post():
         title=data['title'],
         amount=data['amount'],
         privacy=data['privacy'],
-        completed=data['completed'],
       )
       db.session.add(request)
       db.session.commit()
       return request.to_dict()
 
 
-@bp.routes('/<int:request_id>', methods=['PUT', 'DELETE'])
+@bp.route('/<int:request_id>', methods=['PUT', 'DELETE'])
 def request_put_delete(request_id):
   if request.method == 'PUT':
     data = request.json

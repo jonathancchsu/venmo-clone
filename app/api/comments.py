@@ -4,8 +4,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
 
-bp = Blueprint('comments', __name__, url_prefix='comments')
-@bp.routes('/', methods=['GET', 'POST'])
+bp = Blueprint('comments', __name__)
+@bp.route('/', methods=['GET', 'POST'])
 def comments_get_post():
   if request.method == 'GET':
     comments = Comment.query.all()
@@ -22,7 +22,7 @@ def comments_get_post():
     db.session.commit()
     return comment.to_dict()
 
-@bp.routes('/<int:comment_id>', methods=['PUT', 'DELETE'])
+@bp.route('/<int:comment_id>', methods=['PUT', 'DELETE'])
 def comments_put_delete(comment_id):
   if request.method == 'PUT':
     data = request.json

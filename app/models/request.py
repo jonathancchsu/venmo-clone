@@ -17,7 +17,6 @@ class Request(db.Model):
   title = db.Column(String(50), nullable=False)
   amount = db.Column(Float, nullable=False)
   privacy = db.Column(String(10), nullable=False)
-  completed = db.Column(Boolean, nullable=False)
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
