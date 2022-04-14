@@ -19,6 +19,8 @@ class Payment(db.Model):
   created_at = db.Column(DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
+  comments = relationship('Comment', backref='payment', cascade='all, delete-orphan')
+  likes = relationship('Like', backref='payment', cascade='all, delete-orphan')
 
   def to_dict(self):
     return {
