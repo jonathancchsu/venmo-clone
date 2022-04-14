@@ -23,7 +23,13 @@ def payment_get_post():
         privacy=data['privacy'],
       )
       db.session.add(payment)
-      db.session.commit
+      db.session.commit()
+
+      receiver = User.query.get('receiver_id')
+      receiver.balance += data['amount']
+      sender = User.query.get('sender_id')
+      sender.balance -= data['amount']
+      db.sesison.commit()
 
 @bp.routes('/<int:payment_id>', methods=['PUT', 'DELETE'])
 def payment_put_delete(payment_id):
