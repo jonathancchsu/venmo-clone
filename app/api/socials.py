@@ -3,6 +3,7 @@ from app.models import Comment, Like, Payment, Request, Social, User, db
 from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
+
 bp = Blueprint('socials', __name__, url_prefix='socials')
 @bp.route('/', methods=['GET', 'POST'])
 def socials():
@@ -13,6 +14,7 @@ def socials():
   )
   db.session.add(social)
   db.session.commit()
+  return social.to_dict()
 
 @bp.routes('/<int:social_id>', methods=['DELETE'])
 def socials_delete(social_id):
