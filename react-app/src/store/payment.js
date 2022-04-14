@@ -61,7 +61,6 @@ export const updatingPayment = payment => async(dispatch) => {
 const initialState = { entries: [] }
 
 const paymentReducer = (state = initialState, action) => {
-  let newState;
   switch(action.type) {
     case LOAD_PAYMENTS:
       return {...state, entries: [...action.payments]}
@@ -73,3 +72,5 @@ const paymentReducer = (state = initialState, action) => {
       return state;
   }
 }
+
+export default paymentReducer;
