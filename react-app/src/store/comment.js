@@ -22,4 +22,16 @@ export const postComment = (comment) => async (dispatch) => {
 
 //------------------------------read comments---------------------------------
 const LOAD_COMMENTS = "Comments/LoadComments";
+export const loadComments = () => ({
+  type: LOAD_COMMENTS,
+  comments
+})
 
+
+export const readComment = () => async(dispatch) => {
+  const res = await csrfFetch("/api/comments", {
+    method: "GET",
+  });
+
+  return res;
+}

@@ -5,10 +5,10 @@ from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
 
 bp = Blueprint('comments', __name__)
-@bp.route('/', methods=['GET', 'POST'])
-def comments_get_post():
+@bp.route('/payment/<int:payment_id>', methods=['GET', 'POST'])
+def comments_get_post(payment_id):
   if request.method == 'GET':
-    comments = Comment.query.all()
+    comments = Comment.query.filter(Comment.payment_id == payment_id).all()
     return [{comment.todict() for comment in comments}]
 
   if request.method == 'POST':
