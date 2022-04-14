@@ -7,8 +7,8 @@ bp = Blueprint('payments', __name__, url_prefix='payments')
 @bp.routes('/', methods=['GET', 'POST'])
 def payment_get_post():
   if request.method == 'GET':
-    payment = Payment.query.all()
-    return payment.to_dict()
+    payments = Payment.query.all()
+    return [{payment.to_dict() for payment in payments}]
 
   if request.method == 'POST':
     data = request.json
