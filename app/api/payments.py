@@ -32,17 +32,11 @@ def payment_get_post():
       db.sesison.commit()
       return payment.to_dict()
 
-@bp.route('/<int:payment_id>', methods=['PUT', 'DELETE'])
-def payment_put_delete(payment_id):
+@bp.route('/<int:payment_id>', methods=['PUT'])
+def payment_put():
   if request.method == 'PUT':
     data = request.json
     payment = Payment.query.get(data['id'])
     payment.title = data['title']
     db.session.commit()
     return payment.to_dict()
-
-  if request.method == 'DELETE':
-    payment = Payment.query.get(payment_id)
-    db.session.delete(payment)
-    db.session.commit()
-    return {'payment_id': payment_id}
