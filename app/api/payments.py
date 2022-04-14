@@ -30,6 +30,7 @@ def payment_get_post():
       sender = User.query.get('sender_id')
       sender.balance -= data['amount']
       db.sesison.commit()
+      return payment.to_dict()
 
 @bp.routes('/<int:payment_id>', methods=['PUT', 'DELETE'])
 def payment_put_delete(payment_id):
@@ -38,12 +39,10 @@ def payment_put_delete(payment_id):
     payment = Payment.query.get(data['id'])
     payment.title = data['title']
     db.session.commit()
-
     return payment.to_dict()
 
   if request.method == 'DELETE':
     payment = Payment.query.get(payment_id)
     db.session.delete(payment)
     db.session.commit()
-
     return {'payment_id': payment_id}

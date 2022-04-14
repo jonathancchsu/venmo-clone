@@ -26,6 +26,7 @@ def request_get_post():
       )
       db.session.add(request)
       db.session.commit()
+      return request.to_dict()
 
 
 @bp.routes('/<int:request_id>', methods=['PUT', 'DELETE'])
@@ -37,7 +38,6 @@ def request_put_delete(request_id):
     request.amount=data['amount']
     request.privacy=data['privacy']
     db.session.commit()
-
     return request.to_dict()
 
   if request.method == 'DELETE':
