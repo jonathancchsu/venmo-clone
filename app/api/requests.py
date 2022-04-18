@@ -8,17 +8,18 @@ bp = Blueprint('requests', __name__)
 @bp.route('/', methods=['GET', 'POST'])
 def request_get_post():
   if request.method == 'GET':
-    requests = Request.query.filter(Request.receiver_id == current_user.id or Request.sender_id == current_user.id)
+    requests = Request.query.filter(Request.receiver_id == current_user.id)
     return [{request.to_dict() for request in requests}]
 
   if request.method == 'POST':
     data = request.json
     form = RequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    receiver = User.query.filter(User.username == data['receiverName']).first()
     if form.validate_on_submit():
       request = Request(
         sender_id=data['sender_id'],
-        receiver_id=data['receiver_id'],
+        receiver_id=receiver.id,
         title=data['title'],
         amount=data['amount'],
         privacy=data['privacy'],

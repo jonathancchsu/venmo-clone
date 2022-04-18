@@ -14,10 +14,11 @@ def payment_get_post():
     data = request.json
     form = RequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    receiver = User.query.filter(User.username == data['receiverName']).first()
     if form.validate_on_submit():
       payment = Payment (
         sender_id=data['sender_id'],
-        receiver_id=data['receiver_id'],
+        receiver_id=receiver.id,
         title=data['title'],
         amount=data['amount'],
         privacy=data['privacy'],
@@ -25,9 +26,9 @@ def payment_get_post():
       db.session.add(payment)
       db.session.commit()
 
-      receiver = User.query.get('receiver_id')
+      receiver = User.query.get(payment.receiver_id)
       receiver.balance += data['amount']
-      sender = User.query.get('sender_id')
+      sender = User.query.get(payment.sender_id)
       sender.balance -= data['amount']
       db.sesison.commit()
       return payment.to_dict()
