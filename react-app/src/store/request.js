@@ -40,7 +40,7 @@ export const getAllRequests = () => async(dispatch) => {
 
 //------------------------------update requests---------------------------------
 const UPDATE_REQUEST = "requests/UPDATE"
-export const updaterequest = updatedRequest => ({
+export const updateRequest = updatedRequest => ({
   type: UPDATE_REQUEST,
   updatedRequest
 })
@@ -52,16 +52,34 @@ export const updatingRequest = request => async(dispatch) => {
   });
 
   if (res.ok) {
-    const updatedRequest = await res.json()
-    dispatch(updaterequest(updatedRequest))
-    return updatedRequest
+    const updatedRequest = await res.json();
+    dispatch(updateRequest(updatedRequest));
+    return updatedRequest;
   }
+}
+
+//------------------------------delete requests---------------------------------
+const DELETE_REQUEST = "requests/DELETE"
+export const removeRequest = (removedRequest) => ({
+  type: DELETE_REQUEST,
+  removedRequest
+})
+
+export const deleteRequest = (request_id) => async(dispatch) => {
+  const res = await fetch(`/api/requests/${request_id}`, {
+    method: 'DELETE'
+  });
+  const requestNum = await res.json();
+
+  dispatch(removeRequest(requestNum));
 }
 
 //------------------------------requests reducer---------------------------------
 const initialState = { entries: [] }
 
 const requestReducer = (state = initialState, action) => {
+  let newState = { ...state };
+
   switch(action.type) {
     case LOADALL_REQUESTS:
       return {...state, entries: [...action.requests]}
@@ -71,6 +89,9 @@ const requestReducer = (state = initialState, action) => {
       return {...state, entries: [...state.entries, action.request]}
     case UPDATE_REQUEST:
       return {...state, [action.updatedRequest.id]: action.id}
+    case DELETE_REQUEST:
+      delete newState.entries[action.removedRequest]
+      return newState
     default:
       return state;
   }

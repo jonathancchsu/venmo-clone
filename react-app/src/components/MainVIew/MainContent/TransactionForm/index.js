@@ -84,28 +84,43 @@ const TransactionForm = () => {
           required={true}
         ></input>
       </div>
-      <select
-        className='privacy'
-        value={privacy}
-        onChange={e => setPrivacy(e.target.value)}
-      >
-        <option value='public'>Public</option>
-        <option value='friends'>Friends</option>
-        <option value='private'>Private</option>
-      </select>
-      <div
-        type='submit'
-        className='submit-btn'
-        onClick={onCreatePayment}
-      >
-        Payment
+      <div className='privacy-container'>
+        <select
+          className='privacy-select'
+          value={privacy}
+          onChange={e => setPrivacy(e.target.value)}
+        >
+          <option value='public'>Public</option>
+          <option value='friends'>Friends</option>
+          <option value='private'>Private</option>
+        </select>
+        <div className='privacy-description'>
+          {privacy == 'public' && (
+            <p>This info can be viewed by everyone on the internet</p>
+          )}
+          {privacy == 'friends' && (
+            <p>This info can be viewed by sender, recipient and their friends on Venmo</p>
+          )}
+          {privacy == 'private' && (
+            <p>This info can be viewed by the sender and recipient only</p>
+          )}
+        </div>
       </div>
-      <div
-        type='submit'
-        className='submit-btn'
-        onClick={onCreateRequest}
-      >
-        Request
+      <div className='btn-container'>
+        <div
+          type='submit'
+          className='submit-btn'
+          onClick={onCreatePayment}
+        >
+          Payment
+        </div>
+        <div
+          type='submit'
+          className='submit-btn'
+          onClick={onCreateRequest}
+        >
+          Request
+        </div>
       </div>
     </div>
   )

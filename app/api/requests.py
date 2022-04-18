@@ -29,8 +29,11 @@ def request_get_post():
       return request.to_dict()
 
 
-@bp.route('/<int:request_id>', methods=[ 'PUT', 'DELETE'])
+@bp.route('/<int:request_id>', methods=['GET', 'PUT', 'DELETE'])
 def request_put_delete(request_id):
+  if request.method == 'GET':
+    request = Request.query.get(request_id).first()
+    return request.to_dict()
   if request.method == 'PUT':
     data = request.json
     request = Request.query.get(data['id'])

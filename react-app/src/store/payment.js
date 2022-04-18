@@ -51,25 +51,6 @@ export const getOnePayment = paymentId => async(dispatch) => {
     dispatch(loadOnePayment(payment));
   }
 }
-//------------------------------update payments---------------------------------
-const UPDATE_PAYMENT = "payments/UPDATE"
-export const updatePayment = updatedPayment => ({
-  type: UPDATE_PAYMENT,
-  updatedPayment
-})
-
-export const updatingPayment = payment => async(dispatch) => {
-  const res = await csrfFetch(`/api/payments/${payment.id}`, {
-    method: 'PUT',
-    body: JSON.stringify(payment)
-  });
-
-  if (res.ok) {
-    const updatedPayment = await res.json()
-    dispatch(updatePayment(updatedPayment))
-    return updatedPayment
-  }
-}
 
 //------------------------------payments reducer---------------------------------
 const initialState = { entries: [] }
@@ -82,8 +63,6 @@ const paymentReducer = (state = initialState, action) => {
       return {...state, entries: [...action.payment]}
     case ADD_PAYMENT:
       return {...state, entries: [...state.entries, action.payment]}
-    case UPDATE_PAYMENT:
-      return {...state, [action.updatedPayment.id]: action.id}
     default:
       return state;
   }
