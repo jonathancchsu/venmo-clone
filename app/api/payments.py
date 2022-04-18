@@ -32,8 +32,12 @@ def payment_get_post():
       db.sesison.commit()
       return payment.to_dict()
 
-@bp.route('/<int:payment_id>', methods=['PUT'])
-def payment_put():
+@bp.route('/<int:payment_id>', methods=['GET', 'PUT'])
+def payment_put(payment_id):
+  if request.method == 'GET':
+    payment = Payment.query.get(payment_id)
+    return payment.to_dict()
+
   if request.method == 'PUT':
     data = request.json
     payment = Payment.query.get(data['id'])

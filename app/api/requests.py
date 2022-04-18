@@ -8,7 +8,7 @@ bp = Blueprint('requests', __name__)
 @bp.route('/', methods=['GET', 'POST'])
 def request_get_post():
   if request.method == 'GET':
-    requests = Request.query.all()
+    requests = Request.query.filter(Request.receiver_id == current_user.id or Request.sender_id == current_user.id)
     return [{request.to_dict() for request in requests}]
 
   if request.method == 'POST':
@@ -28,7 +28,7 @@ def request_get_post():
       return request.to_dict()
 
 
-@bp.route('/<int:request_id>', methods=['PUT', 'DELETE'])
+@bp.route('/<int:request_id>', methods=[ 'PUT', 'DELETE'])
 def request_put_delete(request_id):
   if request.method == 'PUT':
     data = request.json

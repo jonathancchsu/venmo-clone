@@ -21,9 +21,9 @@ export const postPayment = (payment) => async(dispatch) => {
 };
 
 //------------------------------load payments---------------------------------
-const LOAD_PAYMENTS = "payments/LOAD"
+const LOADALL_PAYMENTS = "payments/LOADALL"
 export const loadPayments = payments => ({
-    type: LOAD_PAYMENTS,
+    type: LOADALL_PAYMENTS,
     payments
 });
 
@@ -33,8 +33,22 @@ export const getAllPayments = () => async(dispatch) => {
   });
 
   if (res.ok) {
-    const payments = await res.json()
-    dispatch(loadPayments(payments))
+    const payments = await res.json();
+    dispatch(loadPayments(payments));
+  }
+}
+//------------------------------get one payments---------------------------------
+const LOADONE_PAYMENT = "payments/LAODONE"
+export const loadOnePayment = payment => ({
+  type: LOADONE_PAYMENT,
+  payment
+});
+
+export const getOnePayment = paymentId => async(dispatch) => {
+  const res = await csrfFetch(`/api/payments/${paymentId}`);
+  if (res.ok) {
+    const payment = await res.json();
+    dispatch(loadOnePayment(payment));
   }
 }
 //------------------------------update payments---------------------------------
@@ -62,8 +76,10 @@ const initialState = { entries: [] }
 
 const paymentReducer = (state = initialState, action) => {
   switch(action.type) {
-    case LOAD_PAYMENTS:
+    case LOADALL_PAYMENTS:
       return {...state, entries: [...action.payments]}
+    case LOADONE_PAYMENT:
+      return {...state, entries: [...action.payment]}
     case ADD_PAYMENT:
       return {...state, entries: [...state.entries, action.payment]}
     case UPDATE_PAYMENT:
