@@ -30,8 +30,8 @@ class Payment(db.Model):
       'title': self.title,
       'amount': self.amount,
       'privacy': self.privacy,
-      'comments': [{comment.content for comment in self.comments}],
-      'likes': len(self.likes),
+      'comments': {'comments': [comment.to_dict() for comment in self.comments]},
+      'likes': {'likes': [like.to_dict() for like in self.likes]},
       'created_at': self.created_at,
       'updated_at': self.updated_at,
     }

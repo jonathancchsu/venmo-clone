@@ -12,7 +12,7 @@ def seed_requests():
 
   for request in requests:
     new_request = Request(
-      sender_id = request['sender_id'], receiver_id = request['receiver_id'], title = request['title'], amount = request['amount'], privacy = request['privacy'], completed = request['completed'],
+      sender_id = request['sender_id'], receiver_id = request['receiver_id'], title = request['title'], amount = request['amount'], privacy = request['privacy'],
     )
     db.session.add(new_request)
     db.session.commit()

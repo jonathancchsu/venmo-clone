@@ -8,7 +8,7 @@ bp = Blueprint('payments', __name__)
 def payment_get_post():
   if request.method == 'GET':
     payments = Payment.query.all()
-    return [{payment.to_dict() for payment in payments}]
+    return {'payments': [payment.to_dict() for payment in payments]}
 
   if request.method == 'POST':
     data = request.json

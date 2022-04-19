@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Route, Switch, NavLink, Link } from 'react-router-dom';
-import * as sessionActions from '../../store/session';
+import * as sessionActions from '../../../store/session';
 
 import { getAllPayments } from '../../../store/payment';
 import OnePayment from './OnePayment';
@@ -20,7 +20,7 @@ function MainContent({ way }) {
     dispatch(getAllPayments());
   }, [dispatch]);
 
-  if (way == 'onePayment') {
+  if (way === 'onePayment') {
     return (
       <div className='main-container'>
         <div className='left-side-bar'>
@@ -33,7 +33,7 @@ function MainContent({ way }) {
     )
   };
 
-  if (way == 'home') {
+  if (way === 'home') {
     return (
       <div className='main-container'>
         <div className='left-side-bar'>
@@ -46,7 +46,7 @@ function MainContent({ way }) {
     )
   };
 
-  if (way == 'form') {
+  if (way === 'form') {
     return (
       <div className='main-container'>
         <div className='left-side-bar'>

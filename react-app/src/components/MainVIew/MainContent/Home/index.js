@@ -8,7 +8,6 @@ import './Home.css'
 
 function Home () {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.sesion.user);
   const allPayments = useSelector(state => state.paymentState.entries);
 
   useEffect(() => {
@@ -21,3 +20,5 @@ function Home () {
     </div>
   )
 }
+
+export default Home;

@@ -16,4 +16,6 @@ function SplashPage() {
       </div>
     </div>
   )
-}
+};
+
+export default SplashPage;

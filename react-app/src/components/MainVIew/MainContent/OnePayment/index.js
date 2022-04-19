@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 const OnePayment = () => {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState();
   const [loaded, setLoaded] = useState();
   const [content, setContent] = useState();
   const { payment_id } = useParams();
@@ -22,7 +23,7 @@ const OnePayment = () => {
   const handlePost = (e) => {
     e.preventDefault();
     if (content.length >= 1) {
-      dispatch(postComment({ content, owner_id, payment_id }));
+      const data = dispatch(postComment({ content, owner_id, payment_id }));
       if (data) {
         setErrors(data);
       }
@@ -32,7 +33,7 @@ const OnePayment = () => {
   const handleEdit = (e, id) => {
     e.preventDefault();
     if (content.length >= 1) {
-      dispatch(updatingComment({ id, content, owner_id, payment_id }));
+      const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
       if (data) {
         setErrors(data);
       }

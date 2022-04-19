@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import MainContent from './components/MainVIew/MainContent';
+import MainContent from './components/MainView/MainContent';
+import SplashPage from './components/SplashPage';
 // import UsersList from './components/UsersList';
 // import User from './components/User';
 import { authenticate } from './store/session';
@@ -15,7 +16,7 @@ function App() {
   const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -25,22 +26,26 @@ function App() {
     return null;
   }
 
-  if (!sessionUser) return (
-    <Switch>
-      <Route exact path='/'>
-        <SplashPage />
-      </Route>
-      <Route path='/login'>
-          <LoginForm />
-      </Route>
-      <Route path ='/signup'>
-          <SignUpForm />
-      </Route>
-      <Route>
-        <p className='nope'>Nope. There's nothing here.</p>
-      </Route>
-    </Switch>
-  )
+  if (!sessionUser) {
+      return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/'>
+            <SplashPage />
+          </Route>
+          <Route path='/login'>
+              <LoginForm />
+          </Route>
+          <Route path ='/signup'>
+              <SignUpForm />
+          </Route>
+          <Route>
+            <p className='nope'>Nope. There's nothing here.</p>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 
   return loaded && (
     <BrowserRouter>

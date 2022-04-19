@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { postPayment } from '../../../../store/payment';
 import { postRequest } from '../../../../store/request';
 
@@ -7,6 +8,7 @@ import "./TransactionForm.css";
 
 const TransactionForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sender_id = useSelector((state) => state.session.user.id);
   const [errors, setErrors] = useState([]);
   const [amount, setAmount] = useState(0);
@@ -18,11 +20,10 @@ const TransactionForm = () => {
     e.preventDefault();
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
-        .then(
-          history.pushState(`/`)
-        );
       if (data) {
         setErrors(data);
+      } else {
+        history.push('/');
       }
     }
   };
@@ -94,13 +95,13 @@ const TransactionForm = () => {
           <option value='private'>Private</option>
         </select>
         <div className='privacy-description'>
-          {privacy == 'public' && (
+          {privacy === 'public' && (
             <p>This info can be viewed by everyone on the internet</p>
           )}
-          {privacy == 'friends' && (
+          {privacy === 'friends' && (
             <p>This info can be viewed by sender, recipient and their friends on Venmo</p>
           )}
-          {privacy == 'private' && (
+          {privacy === 'private' && (
             <p>This info can be viewed by the sender and recipient only</p>
           )}
         </div>

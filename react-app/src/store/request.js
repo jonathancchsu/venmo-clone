@@ -83,8 +83,6 @@ const requestReducer = (state = initialState, action) => {
   switch(action.type) {
     case LOADALL_REQUESTS:
       return {...state, entries: [...action.requests]}
-    case LOADONE_REQUEST:
-      return {...state, entries: [...action.request]}
     case ADD_REQUEST:
       return {...state, entries: [...state.entries, action.request]}
     case UPDATE_REQUEST:
