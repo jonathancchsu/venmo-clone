@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Route, Switch, NavLink, Link } from 'react-router-dom';
-import * as sessionActions from '../../../store/session';
+import * as sessionActions from '../../store/session';
 
-import { getAllPayments } from '../../../store/payment';
+import { getAllPayments } from '../../store/payment';
 import OnePayment from './OnePayment';
 import Home from './Home';
-import LeftSideBar from '../LeftSideBar';
+import LeftSideBar from './LeftSideBar';
 import TransactionForm from './TransactionForm';
 
 import './MainContent.css';

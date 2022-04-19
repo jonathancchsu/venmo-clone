@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getOnePayment } from "../../../../store/payment";
-import { postComment, getComments, updatingComment, deleteComment } from "../../../../store/comment";
+import { getOnePayment } from "../../../store/payment";
+import { postComment, getComments, updatingComment, deleteComment } from "../../../store/comment";
 
 import './OnePayment.css';
 import { useParams } from "react-router-dom";

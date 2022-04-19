@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { postPayment } from '../../../../store/payment';
-import { postRequest } from '../../../../store/request';
+import { postPayment } from '../../../store/payment';
+import { postRequest } from '../../../store/request';
 
 import "./TransactionForm.css";
 
