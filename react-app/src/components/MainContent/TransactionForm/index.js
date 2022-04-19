@@ -107,20 +107,20 @@ const TransactionForm = () => {
         </div>
       </div>
       <div className='btn-container'>
-        <div
+        <button
           type='submit'
           className='submit-btn'
           onClick={onCreatePayment}
         >
           Payment
-        </div>
-        <div
+        </button>
+        <button
           type='submit'
           className='submit-btn'
           onClick={onCreateRequest}
         >
           Request
-        </div>
+        </button>
       </div>
     </div>
   )

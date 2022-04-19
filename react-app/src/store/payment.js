@@ -34,7 +34,6 @@ export const getAllPayments = () => async (dispatch) => {
     }
   })
   const payments = await res.json();
-  // console.log('payments here from reducer -------------------------',payments)
   dispatch(loadPayments(payments));
 }
 //------------------------------get one payments---------------------------------
@@ -58,7 +57,7 @@ const initialState = { entries: [] }
 const paymentReducer = (state = initialState, action) => {
   switch(action.type) {
     case LOADALL_PAYMENTS:
-      return {...state, entries: [action.payments]}
+      return {entries: [action.payments]}
     case LOADONE_PAYMENT:
       return {...state, entries: [...action.payment]}
     case ADD_PAYMENT:

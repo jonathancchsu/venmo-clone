@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, Route, Switch, NavLink, Link } from 'react-router-dom';
-import * as sessionActions from '../../store/session';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+// import { Redirect, Route, Switch, NavLink, Link } from 'react-router-dom';
+// import * as sessionActions from '../../store/session';
 
 import { getAllPayments } from '../../store/payment';
 import OnePayment from './OnePayment';
