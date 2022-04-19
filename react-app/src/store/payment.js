@@ -34,7 +34,7 @@ export const getAllPayments = () => async (dispatch) => {
     }
   })
   const payments = await res.json();
-  console.log('payments here from reducer -------------------------',payments)
+  // console.log('payments here from reducer -------------------------',payments)
   dispatch(loadPayments(payments));
 }
 //------------------------------get one payments---------------------------------

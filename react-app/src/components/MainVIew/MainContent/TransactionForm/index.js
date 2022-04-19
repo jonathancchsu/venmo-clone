@@ -14,7 +14,7 @@ const TransactionForm = () => {
   const [amount, setAmount] = useState(0);
   const [receiverName, setReceiverName] = useState('');
   const [title, setTitle] = useState('');
-  const [privacy, setPrivacy] = useState('');
+  const [privacy, setPrivacy] = useState('public');
 
   const onCreatePayment = async(e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const TransactionForm = () => {
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
         .then(
-          history.pushState(`/`)
+          history.push(`/`)
         );
       if (data) {
         setErrors(data);
