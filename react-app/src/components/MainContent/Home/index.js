@@ -11,6 +11,7 @@ function Home () {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     setLoaded(true)
+    dispatch(getAllPayments())
   }, [dispatch]);
 
   // const allPayments = useSelector(state => state.paymentState.entries[0].payments);
