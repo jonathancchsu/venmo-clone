@@ -27,9 +27,11 @@ def payment_get_post():
       db.session.commit()
 
       receiver = User.query.get(payment.receiver_id)
-      receiver.balance += data['amount']
+      new_receiver_balance = round(float(receiver.balance) + float(data['amount']), 2)
+      receiver.balance = new_receiver_balance
       sender = User.query.get(payment.sender_id)
-      sender.balance -= data['amount']
+      new_sender_balance = round(float(sender.balance) + float(data['amount']), 2)
+      sender.balance = new_sender_balance
       db.sesison.commit()
       return payment.to_dict()
 

@@ -41,6 +41,11 @@ const TransactionForm = () => {
     }
   };
 
+  const validate = (e) => {
+    var t = (e.target.value);
+    (e.target.value) = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+  }
+
   return (
     <div className='form-container'>
       <div className='page-title'>
@@ -57,11 +62,15 @@ const TransactionForm = () => {
       )}
       <div className='amount'>
         <input
-          type='number'
+          type='text'
           name='amount'
           value={amount}
+          pattern={['(?<=^| )\d+(\.\d+)?(?=$| )']}
+          onInput={e => validate(e)}
           onChange={e => setAmount(e.target.value)}
           required={true}
+          placeholder='0.00'
+          className='amount-input'
         ></input>
       </div>
       <div className='receiver'>
