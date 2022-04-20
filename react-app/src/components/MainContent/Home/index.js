@@ -1,33 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch} from 'react-redux'
+// import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 // import { Link } from 'react-router-dom'
 
-import { getAllPayments } from '../../../store/payment'
+// import { getAllPayments } from '../../../store/payment'
 
 import './Home.css'
 
-function Home () {
-  const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    setLoaded(true)
-    dispatch(getAllPayments())
-  }, [dispatch]);
-
+const Home = () => {
   // const allPayments = useSelector(state => state.paymentState.entries[0].payments);
-  const allPayments = useSelector(state => state.paymentState.entries)
-  console.log(allPayments)
+  // console.log(useSelector(state => state.paymentState.entries[0].payments ))
   // const paymentsObj = allPayments[0].payments;
   // console.log(paymentsObj)
+  console.log(useSelector(state => state))
 
   return (
-    loaded && (
-      <div>
-        {allPayments.map(payment => {
 
-        })}
-      </div>
-    )
+    <div>
+      {/* {allPayments.map(payment => {
+
+      })} */}
+    </div>
+
   )
 }
 

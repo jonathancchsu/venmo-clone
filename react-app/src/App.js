@@ -9,6 +9,7 @@ import SplashPage from './components/SplashPage';
 // import UsersList from './components/UsersList';
 // import User from './components/User';
 import { authenticate } from './store/session';
+// import { getAllPayments } from './store/payment'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -18,6 +19,7 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      // await dispatch(getAllPayments())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -36,7 +38,7 @@ function App() {
           <Route path='/login'>
               <LoginForm />
           </Route>
-          <Route path ='/signup'>
+          <Route path ='/sign-up'>
               <SignUpForm />
           </Route>
           <Route>
@@ -56,8 +58,11 @@ function App() {
         <ProtectedRoute path='/pay' exact={true}>
           <MainContent way={'form'}/>
         </ProtectedRoute>
-        <ProtectedRoute path='/story/:paymentId'>
+        <ProtectedRoute path='/story/:paymentId' exact={true}>
           <MainContent way={'onePayment'}/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/incomplete' exact={true}>
+          <MainContent way={'incomplete'} />
         </ProtectedRoute>
         <Route path='/login'>
             <Redirect to='/' />

@@ -1,6 +1,15 @@
 import { csrfFetch } from "./csrf"
 //create, read, update
 
+//------------------------------set payments---------------------------------
+const SET_PAYMENTS = "payments/SET";
+export const setPayments = (payments) => {
+  return {
+    type: SET_PAYMENTS,
+    payments
+  }
+}
+
 //------------------------------create payments---------------------------------
 const ADD_PAYMENT = "payments/ADD"
 export const addPayment = (payment) => ({
@@ -56,6 +65,10 @@ const initialState = { entries: [] }
 
 const paymentReducer = (state = initialState, action) => {
   switch(action.type) {
+    // case SET_PAYMENTS:
+    //   action.payments.forEach(
+    //     (payment) => (...state, entries:[payment.id] = payment))
+    //   }
     case LOADALL_PAYMENTS:
       return {entries: [action.payments]}
     case LOADONE_PAYMENT:

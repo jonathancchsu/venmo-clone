@@ -11,7 +11,7 @@ const LeftSideBar = () => {
   // const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   // const [loaded, setLoaded] = useState();
-  console.log(sessionUser)
+  // console.log(sessionUser)
   // useEffect(() => {
   //   setLoaded(true);
   // })
@@ -40,6 +40,11 @@ const LeftSideBar = () => {
       }
       <div className="balance">
         <p>$ {sessionUser.balance} in Venmo</p>
+      </div>
+      <div>
+        <Link className="incomplete" to='/incomplete'>
+          Incomplete
+        </Link>
       </div>
       <div>
         <LogOutButton />

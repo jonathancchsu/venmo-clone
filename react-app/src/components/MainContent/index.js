@@ -8,6 +8,7 @@ import OnePayment from './OnePayment';
 import Home from './Home';
 import LeftSideBar from './LeftSideBar';
 import TransactionForm from './TransactionForm';
+import Incomplete from './Incomplete';
 
 import './MainContent.css';
 
@@ -54,6 +55,19 @@ function MainContent({ way }) {
         </div>
         <div className='main-content'>
           <TransactionForm />
+        </div>
+      </div>
+    )
+  };
+
+  if (way === 'incomplete') {
+    return (
+      <div className='main-container'>
+        <div className='left-side-bar'>
+          <LeftSideBar />
+        </div>
+        <div className='main-content'>
+          <Incomplete />
         </div>
       </div>
     )
