@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
 // import { Redirect, Route, Switch, NavLink, Link } from 'react-router-dom';
 // import * as sessionActions from '../../store/session';
 
-import { getAllPayments } from '../../store/payment';
+// import { getAllPayments } from '../../store/payment';
 import OnePayment from './OnePayment';
 import Home from './Home';
 import LeftSideBar from './LeftSideBar';
@@ -13,13 +13,13 @@ import Incomplete from './Incomplete';
 import './MainContent.css';
 
 function MainContent({ way }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const sessionUser = useSelector(state => state.session.user);
   // const payments = useSelector(state => state.paymentState.entries);
 
-  useEffect(() => {
-    dispatch(getAllPayments());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllPayments());
+  // }, [dispatch]);
 
   if (way === 'onePayment') {
     return (
