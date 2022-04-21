@@ -72,7 +72,7 @@ const paymentReducer = (state = initialState, action) => {
     case LOADALL_PAYMENTS:
       return {entries: [action.payments]}
     case LOADONE_PAYMENT:
-      return {...state, entries: [...action.payment]}
+      return {entries: [action.payment]}
     case ADD_PAYMENT:
       return {...state, entries: [...state.entries, action.payment]}
     default:

@@ -1,24 +1,41 @@
-// import { useEffect, useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { getOnePayment } from "../../../store/payment";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getOnePayment } from "../../../store/payment";
+import { useParams } from "react-router-dom";
 // import { postComment, getComments, updatingComment, deleteComment } from "../../../store/comment";
 
-// import './OnePayment.css';
-// import { useParams } from "react-router-dom";
+import './OnePayment.css';
 
 const OnePayment = () => {
-  // const dispatch = useDispatch();
-  // const [errors, setErrors] = useState();
-  // const [loaded, setLoaded] = useState();
-  // const [content, setContent] = useState();
-  // const { payment_id } = useParams();
-  // const owner_id = useSelector(state => state.session.user.id);
-  // const payment = useSelector(state => state.paymentState.entries);
+  const dispatch = useDispatch();
+  const [loaded, setLoaded] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [content, setContent] = useState('');
+  const { paymentId } = useParams();
 
-  // useEffect(() => {
-  //   dispatch(getOnePayment(payment_id));
-  //   dispatch(getComments(payment_id));
-  // }, [dispatch, payment_id]);
+  const payment = useSelector(state => state.paymentState?.entries[0])
+  const sessionUser = useSelector(state => state.session.user)
+  const commentsObj = payment?.comments?.comments
+
+  useEffect(() => {
+    (async() => {
+      await dispatch(getOnePayment(paymentId));
+      setLoaded(true);
+    })();
+  }, [dispatch]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/api/users/');
+      const responseData = await response.json();
+      setUsers(responseData?.users);
+    }
+    fetchData();
+  }, []);
+
+  if (!loaded) {
+    return null;
+  };
 
   // const handlePost = (e) => {
   //   e.preventDefault();
@@ -47,7 +64,60 @@ const OnePayment = () => {
 
   return (
     <div>
+      <div className="payments">
+        <div className='sender-receiver'>
+          {(payment.sender_id === sessionUser.id) ?
+            "You"
+            :
+            users[payment?.sender_id - 1].name}
+          {` paid `}
+          {(payment.receiver_id === sessionUser.id) ?
+            "You"
+            :
+            users[payment?.receiver_id - 1].name}
+        </div>
+        {payment.sender_id === sessionUser.id ||
+          payment.receiver_id === sessionUser.id ?
+          <div className='amount'>
+            {`$ ${payment.amount}`}
+          </div>
+          :
+          <></>
+        }
+        <div className="payment-title">
+        {payment.title}
+        </div>
+        <div className="payment-btns">
 
+        </div>
+        <div className="comments-container">
+          {commentsObj?.map((comment, i) =>
+            <div key={i} className="comment">
+              <div className="comment-content">
+                {comment.content}
+              </div>
+                {comment.owner_id === sessionUser.id ?
+                  <div className="comments-btns">
+                    <button>edit</button>
+                    <button>delete</button>
+                  </div>
+                  :
+                  <></>
+                }
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="post-comment">
+        <form>
+          <input
+            type="text"
+            value={content}
+            onChange={e => setContent(e.target.value)}
+            placeholder="Write a comment..."
+          ></input>
+        </form>
+      </div>
     </div>
   )
 }

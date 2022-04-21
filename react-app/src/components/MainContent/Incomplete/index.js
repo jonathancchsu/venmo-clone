@@ -5,7 +5,7 @@ import './Incomplete.css';
 const Incomplete = () => {
   return (
     <div>
-
+      
     </div>
   )
 }
