@@ -8,13 +8,7 @@ import './LeftSideBar.css';
 
 
 const LeftSideBar = () => {
-  // const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  // const [loaded, setLoaded] = useState();
-  // console.log(sessionUser)
-  // useEffect(() => {
-  //   setLoaded(true);
-  // })
 
   return (
     <div className="left-side-bar">
