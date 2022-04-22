@@ -9,7 +9,7 @@ export const addComment = (comment) => ({
 });
 
 export const postComment = (comment) => async (dispatch) => {
-  const res = await csrfFetch(`/api/comments/payments/${comment.paymentId}`, {
+  const res = await csrfFetch(`/api/comments/payments/${comment.payment_id}`, {
     method: "POST",
     body: JSON.stringify(comment)
   });
@@ -25,8 +25,8 @@ export const loadComments = (comments) => ({
   comments
 })
 
-export const getComments = (paymentId) => async(dispatch) => {
-  const res = await csrfFetch(`/api/comments/payments/${paymentId}`, {
+export const getComments = (payment_id) => async(dispatch) => {
+  const res = await csrfFetch(`/api/comments/payments/${payment_id}`, {
     method: "GET",
   });
 

@@ -28,7 +28,6 @@ class Request(db.Model):
       'title': self.title,
       'amount': self.amount,
       'privacy': self.privacy,
-      'completed': self.completed,
       'created_at': self.created_at,
       'updated_at': self.updated_at,
     }

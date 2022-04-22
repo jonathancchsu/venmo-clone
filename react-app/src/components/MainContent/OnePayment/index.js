@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
-// import { postComment, getComments, updatingComment, deleteComment } from "../../../store/comment";
+import { postComment, getComments, updatingComment, deleteComment } from "../../../store/comment";
 
 import './OnePayment.css';
 
@@ -10,19 +10,22 @@ const OnePayment = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [content, setContent] = useState('');
   const { paymentId } = useParams();
 
-  const payment = useSelector(state => state.paymentState?.entries[0])
-  const sessionUser = useSelector(state => state.session.user)
-  const commentsObj = payment?.comments?.comments
+  const payment = useSelector(state => state.paymentState?.entries[0]);
+  const sessionUser = useSelector(state => state.session.user);
+  const owner_id = sessionUser?.id;
+  const payment_id = payment?.id;
+  const commentsObj = payment?.comments?.comments;
 
   useEffect(() => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
       setLoaded(true);
     })();
-  }, [dispatch]);
+  }, [dispatch, paymentId]);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,15 +40,15 @@ const OnePayment = () => {
     return null;
   };
 
-  // const handlePost = (e) => {
-  //   e.preventDefault();
-  //   if (content.length >= 1) {
-  //     const data = dispatch(postComment({ content, owner_id, payment_id }));
-  //     if (data) {
-  //       setErrors(data);
-  //     }
-  //   }
-  // };
+  const handlePost = (e) => {
+    e.preventDefault();
+    if (content.length >= 1) {
+      const data = dispatch(postComment({ content, owner_id, payment_id }));
+      if (data) {
+        setErrors(data);
+      }
+    }
+  };
 
   // const handleEdit = (e, id) => {
   //   e.preventDefault();
@@ -57,16 +60,16 @@ const OnePayment = () => {
   //   }
   // };
 
-  // const handleDelete = (e, id) => {
-  //   e.preventDefault();
-  //   dispatch(deleteComment(id));
-  // }
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    dispatch(deleteComment(id));
+  }
 
   return (
     <div>
       <div className="payments">
         <div className='sender-receiver'>
-          {(payment.sender_id === sessionUser.id) ?
+          {(payment?.sender_id === sessionUser?.id) ?
             "You"
             :
             users[payment?.sender_id - 1].name}
@@ -99,7 +102,7 @@ const OnePayment = () => {
                 {comment.owner_id === sessionUser.id ?
                   <div className="comments-btns">
                     <button>edit</button>
-                    <button>delete</button>
+                    <button onClick={e => handleDelete(e, comment.id)}>delete</button>
                   </div>
                   :
                   <></>
@@ -108,6 +111,13 @@ const OnePayment = () => {
           )}
         </div>
       </div>
+      {errors.length > 0 && (
+        <div className="errors-container">
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+      )}
       <div className="post-comment">
         <form>
           <input
@@ -116,6 +126,13 @@ const OnePayment = () => {
             onChange={e => setContent(e.target.value)}
             placeholder="Write a comment..."
           ></input>
+          <button
+            type="submit"
+            className="submit-btn"
+            onClick={handlePost}
+          >
+            submit
+          </button>
         </form>
       </div>
     </div>

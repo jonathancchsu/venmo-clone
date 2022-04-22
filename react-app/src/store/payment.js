@@ -1,14 +1,4 @@
-import { csrfFetch } from "./csrf"
 //create, read, update
-
-//------------------------------set payments---------------------------------
-const SET_PAYMENTS = "payments/SET";
-export const setPayments = (payments) => {
-  return {
-    type: SET_PAYMENTS,
-    payments
-  }
-}
 
 //------------------------------create payments---------------------------------
 const ADD_PAYMENT = "payments/ADD"
@@ -18,7 +8,7 @@ export const addPayment = (payment) => ({
 });
 
 export const postPayment = (payment) => async(dispatch) => {
-  const res = await csrfFetch("/api/payments", {
+  const res = await fetch("/api/payments", {
     method: "POST",
     body: JSON.stringify(payment)
   });
@@ -41,7 +31,8 @@ export const getAllPayments = () => async (dispatch) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  })
+  });
+
   const payments = await res.json();
   dispatch(loadPayments(payments));
 }
@@ -53,7 +44,7 @@ export const loadOnePayment = payment => ({
 });
 
 export const getOnePayment = paymentId => async(dispatch) => {
-  const res = await csrfFetch(`/api/payments/${paymentId}`);
+  const res = await fetch(`/api/payments/${paymentId}`);
   if (res.ok) {
     const payment = await res.json();
     dispatch(loadOnePayment(payment));
@@ -65,10 +56,6 @@ const initialState = { entries: [] }
 
 const paymentReducer = (state = initialState, action) => {
   switch(action.type) {
-    // case SET_PAYMENTS:
-    //   action.payments.forEach(
-    //     (payment) => (...state, entries:[payment.id] = payment))
-    //   }
     case LOADALL_PAYMENTS:
       return {entries: [action.payments]}
     case LOADONE_PAYMENT:

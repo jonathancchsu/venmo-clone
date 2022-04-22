@@ -2,13 +2,13 @@
   height: 10vh;
   display: flex;
   flex-direction: row;
+  width: 80%;
 }
 
 .splash-btn {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
 }
 
 .splash-logo {

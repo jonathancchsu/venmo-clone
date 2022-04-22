@@ -65,7 +65,7 @@ const TransactionForm = () => {
           type='text'
           name='amount'
           value={amount}
-          pattern={['(?<=^| )\d+(\.\d+)?(?=$| )']}
+          // pattern={['(?<=^| )\d+(\.\d+)?(?=$| )']}
           onInput={e => validate(e)}
           onChange={e => setAmount(e.target.value)}
           required={true}

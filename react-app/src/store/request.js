@@ -1,4 +1,3 @@
-import { csrfFetch } from "./csrf"
 //create, read, update, delete
 
 //------------------------------create requests---------------------------------
@@ -9,7 +8,7 @@ export const addRequest = (request) => ({
 });
 
 export const postRequest = (request) => async(dispatch) => {
-  const res = await csrfFetch("/api/requests", {
+  const res = await fetch("/api/requests", {
     method: "POST",
     body: JSON.stringify(request)
   });
@@ -27,15 +26,15 @@ export const loadRequests = requests => ({
     requests
 });
 
-export const getAllRequests = () => async(dispatch) => {
-  const res = await csrfFetch(`/api/requests`, {
-    method: 'GET'
+export const getAllRequests = () => async (dispatch) => {
+  const res = await fetch("/api/requests", {
+    headers: {
+      'Content-Type': 'application/json'
+    }
   });
 
-  if (res.ok) {
-    const requests = await res.json();
-    dispatch(loadRequests(requests));
-  }
+  const requests = await res.json();
+  dispatch(loadRequests(requests));
 }
 
 //------------------------------update requests---------------------------------
@@ -46,7 +45,7 @@ export const updateRequest = updatedRequest => ({
 })
 
 export const updatingRequest = request => async(dispatch) => {
-  const res = await csrfFetch(`/api/requests/${request.id}`, {
+  const res = await fetch(`/api/requests/${request.id}`, {
     method: 'PUT',
     body: JSON.stringify(request)
   });
@@ -82,7 +81,7 @@ const requestReducer = (state = initialState, action) => {
 
   switch(action.type) {
     case LOADALL_REQUESTS:
-      return {...state, entries: [...action.requests]}
+      return {entries: [action.requests]}
     case ADD_REQUEST:
       return {...state, entries: [...state.entries, action.request]}
     case UPDATE_REQUEST:
