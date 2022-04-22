@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 //create, read, update
 
 //------------------------------create payments---------------------------------
@@ -8,12 +9,12 @@ export const addPayment = (payment) => ({
 });
 
 export const postPayment = (payment) => async(dispatch) => {
-  const res = await fetch("/api/payments", {
+  const res = await csrfFetch("/api/payments/", {
     method: "POST",
-    body: JSON.stringify(payment)
+    body: JSON.stringify(payment),
   });
-  const new_payment = await res.json();
 
+  const new_payment = await res.json();
   dispatch(addPayment(new_payment));
 
   return new_payment;

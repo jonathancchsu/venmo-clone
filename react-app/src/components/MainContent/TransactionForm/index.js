@@ -18,18 +18,21 @@ const TransactionForm = () => {
 
   const onCreatePayment = async(e) => {
     e.preventDefault();
+
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
-      if (data) {
-        setErrors(data);
-      } else {
-        history.push('/');
-      }
+        .then(() => {
+          history.push('/')
+        });
+        if (data) {
+          setErrors(data);
+        };
     }
   };
 
   const onCreateRequest = async(e) => {
     e.preventDefault();
+    
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
         .then(
@@ -41,10 +44,16 @@ const TransactionForm = () => {
     }
   };
 
-  const validate = (e) => {
-    var t = (e.target.value);
-    (e.target.value) = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-  }
+  // const amountValidation = amount => {
+  //   const regex = new RegExp('/(?=.*?\d)^\$?(([1-9]\d{0,2}?(\.\d{1,2})?$/');
+  //   return regex.test(amount);
+  // }
+
+  // const changeAmount = e => {
+  //   const amount = e.target.value;
+  //   const validAmount = !amount || amountValidation(amount);
+  //   if (validAmount) setAmount(amount);
+  // };
 
   return (
     <div className='form-container'>
@@ -53,84 +62,86 @@ const TransactionForm = () => {
           Venmo | Pay & Request
         </p>
       </div>
-      {errors.length > 0 && (
-        <div className="errors-container">
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
+      <form className='form'>
+        {errors.length > 0 && (
+          <div className="errors-container">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
+        <div className='amount'>
+          <input
+            type='number'
+            step='0.01'
+            name='amount'
+            value={amount}
+            // onChange={e => changeAmount(e)}
+            onChange={e => setAmount(e.target.value)}
+            required={true}
+            placeholder='0.00'
+            className='amount-input'
+          ></input>
         </div>
-      )}
-      <div className='amount'>
-        <input
-          type='text'
-          name='amount'
-          value={amount}
-          // pattern={['(?<=^| )\d+(\.\d+)?(?=$| )']}
-          onInput={e => validate(e)}
-          onChange={e => setAmount(e.target.value)}
-          required={true}
-          placeholder='0.00'
-          className='amount-input'
-        ></input>
-      </div>
-      <div className='receiver'>
-        <input
-          type='text'
-          name='receiverName'
-          value={receiverName}
-          onChange={e => setReceiverName(e.target.value)}
-          placeholder='Name'
-          required={true}
-        ></input>
-      </div>
-      <div className='title'>
-        <input
-          type='text'
-          name='title'
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder='Note'
-          required={true}
-        ></input>
-      </div>
-      <div className='privacy-container'>
-        <select
-          className='privacy-select'
-          value={privacy}
-          onChange={e => setPrivacy(e.target.value)}
-        >
-          <option value='public'>Public</option>
-          <option value='friends'>Friends</option>
-          <option value='private'>Private</option>
-        </select>
-        <div className='privacy-description'>
-          {privacy === 'public' && (
-            <p>This info can be viewed by everyone on the internet</p>
-          )}
-          {privacy === 'friends' && (
-            <p>This info can be viewed by sender, recipient and their friends on Venmo</p>
-          )}
-          {privacy === 'private' && (
-            <p>This info can be viewed by the sender and recipient only</p>
-          )}
+        <div className='receiver'>
+          <input
+            type='text'
+            name='receiverName'
+            value={receiverName}
+            onChange={e => setReceiverName(e.target.value)}
+            placeholder='Name'
+            required={true}
+          ></input>
         </div>
-      </div>
-      <div className='btn-container'>
-        <button
-          type='submit'
-          className='submit-btn'
-          onClick={onCreatePayment}
-        >
-          Payment
-        </button>
-        <button
-          type='submit'
-          className='submit-btn'
-          onClick={onCreateRequest}
-        >
-          Request
-        </button>
-      </div>
+        <div className='title'>
+          <input
+            type='text'
+            name='title'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder='Note'
+            required={true}
+          ></input>
+        </div>
+        <div className='privacy-container'>
+          <select
+            className='privacy-select'
+            value={privacy}
+            onChange={e => setPrivacy(e.target.value)}
+          >
+            <option value='public'>Public</option>
+            <option value='friends'>Friends</option>
+            <option value='private'>Private</option>
+          </select>
+          <div className='privacy-description'>
+            {privacy === 'public' && (
+              <p>This info can be viewed by everyone on the internet</p>
+            )}
+            {privacy === 'friends' && (
+              <p>This info can be viewed by sender, recipient and their friends on Venmo</p>
+            )}
+            {privacy === 'private' && (
+              <p>This info can be viewed by the sender and recipient only</p>
+            )}
+          </div>
+        </div>
+        <div className='btn-container'>
+          <button
+            type='submit'
+            className='submit-btn'
+            onClick={onCreatePayment}
+          >
+            Payment
+          </button>
+          <button
+            type='submit'
+            className='submit-btn'
+            onClick={onCreateRequest}
+          >
+            Request
+          </button>
+        </div>
+      </form>
     </div>
   )
 };

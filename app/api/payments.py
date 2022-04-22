@@ -18,10 +18,10 @@ def payment_get_post():
     receiver = User.query.filter(User.username == data['receiverName']).first()
     if form.validate_on_submit():
       payment = Payment (
+        amount=data['amount'],
         sender_id=data['sender_id'],
         receiver_id=receiver.id,
         title=data['title'],
-        amount=data['amount'],
         privacy=data['privacy'],
       )
       db.session.add(payment)
@@ -30,6 +30,8 @@ def payment_get_post():
       receiver = User.query.get(payment.receiver_id)
       new_receiver_balance = round(float(receiver.balance) + float(data['amount']), 2)
       receiver.balance = new_receiver_balance
+      db.sesison.commit()
+
       sender = User.query.get(payment.sender_id)
       new_sender_balance = round(float(sender.balance) + float(data['amount']), 2)
       sender.balance = new_sender_balance

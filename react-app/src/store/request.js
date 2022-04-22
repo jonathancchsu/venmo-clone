@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 //create, read, update, delete
 
 //------------------------------create requests---------------------------------
@@ -8,12 +9,12 @@ export const addRequest = (request) => ({
 });
 
 export const postRequest = (request) => async(dispatch) => {
-  const res = await fetch("/api/requests", {
+  const res = await csrfFetch("/api/requests/", {
     method: "POST",
-    body: JSON.stringify(request)
+    body: JSON.stringify(request),
   });
-  const new_request = await res.json();
 
+  const new_request = await res.json();
   dispatch(addRequest(new_request));
 
   return new_request;
