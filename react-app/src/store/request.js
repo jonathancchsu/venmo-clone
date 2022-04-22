@@ -28,7 +28,7 @@ export const loadRequests = requests => ({
 });
 
 export const getAllRequests = () => async (dispatch) => {
-  const res = await csrfFetch("/api/requests", {
+  const res = await csrfFetch("/api/requests/", {
     headers: {
       'Content-Type': 'application/json'
     }
