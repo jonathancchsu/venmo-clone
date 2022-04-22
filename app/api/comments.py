@@ -9,7 +9,7 @@ bp = Blueprint('comments', __name__)
 def comments_get_post(payment_id):
   if request.method == 'GET':
     comments = Comment.query.filter(Comment.payment_id == payment_id).all()
-    return [{comment.todict() for comment in comments}]
+    return {'comments': [comment.to_dict() for comment in comments]}
 
   if request.method == 'POST':
     data = request.json
@@ -18,7 +18,7 @@ def comments_get_post(payment_id):
       payment_id=data['payment_id'],
       content=data['content'],
     )
-    db.session.save(comment)
+    db.session.add(comment)
     db.session.commit()
     return comment.to_dict()
 

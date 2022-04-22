@@ -80,15 +80,27 @@ const commentReducer = (state = initialState, action) => {
   let newState = { ...state };
 
   switch(action.type) {
-    case LOAD_COMMENTS:
-      return { ...state, entries: [...action.comments]}
-    case ADD_COMMENT:
-      return { ...state, entries: [...state.entries, action.comment]}
-    case UPDATE_COMMENT:
-      return {...state, [action.updatedComment.id]: action.id}
-    case DELETE_COMMENT:
+    case LOAD_COMMENTS: {
+      action.comments.comments.forEach(
+        (comment) => (newState.entries[comment.id] = comment)
+      );
+      return newState;
+    };
+    case ADD_COMMENT: {
+      newState.entries[action.comment.id] = { ...action.comment }
+
+      return newState;
+    }
+    case UPDATE_COMMENT: {
+      newState.entries[action.comment.id] = action.comment;
+
+      return newState;
+    }
+    case DELETE_COMMENT: {
       delete newState.entries[action.removedComment]
-      return newState
+      
+      return newState;
+    }
     default:
       return state;
   }

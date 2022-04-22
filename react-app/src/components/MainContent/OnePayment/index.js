@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
-import { postComment, updatingComment, deleteComment } from "../../../store/comment";
+import { getComments ,postComment, updatingComment, deleteComment } from "../../../store/comment";
 
 import './OnePayment.css';
 
@@ -11,6 +11,7 @@ const OnePayment = () => {
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [edit, setEdit] = useState('');
   const [content, setContent] = useState('');
   const { paymentId } = useParams();
 
@@ -19,10 +20,12 @@ const OnePayment = () => {
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
   const commentsObj = payment?.comments?.comments;
-
+  // const commentState = useSelector(state => state.commentState?.entries)
+    // console.log(commentState)
   useEffect(() => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
+      await dispatch(getComments(paymentId));
       setLoaded(true);
     })();
   }, [dispatch, paymentId]);
@@ -36,34 +39,39 @@ const OnePayment = () => {
     fetchData();
   }, []);
 
-  if (!loaded) {
-    return null;
-  };
-
   const handlePost = (e) => {
     e.preventDefault();
+
     if (content.length >= 1) {
       const data = dispatch(postComment({ content, owner_id, payment_id }));
+      setContent('');
+
       if (data) {
         setErrors(data);
       }
     }
   };
 
-  // const handleEdit = (e, id) => {
-  //   e.preventDefault();
-  //   if (content.length >= 1) {
-  //     const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
-  //     if (data) {
-  //       setErrors(data);
-  //     }
-  //   }
-  // };
+  const handleEdit = (e, id) => {
+    e.preventDefault();
+
+    if (content.length >= 1) {
+      const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
+      setContent('');
+      if (data) {
+        setErrors(data);
+      }
+    }
+  };
 
   const handleDelete = (e, id) => {
     e.preventDefault();
     dispatch(deleteComment(id));
   }
+  
+  if (!loaded) {
+    return null;
+  };
 
   return (
     <div>
@@ -77,7 +85,7 @@ const OnePayment = () => {
           {(payment.receiver_id === sessionUser.id) ?
             "You"
             :
-            users[payment?.receiver_id - 1].name}
+            users[payment?.receiver_id - 1]?.name}
         </div>
         {payment.sender_id === sessionUser.id ||
           payment.receiver_id === sessionUser.id ?
