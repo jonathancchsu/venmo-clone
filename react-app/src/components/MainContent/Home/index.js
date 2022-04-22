@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     (async() => {
       await dispatch(getAllPayments());
-      setLoaded(true);
+      return setLoaded(true);
     })();
   }, [dispatch]);
 
@@ -26,7 +26,7 @@ const Home = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      setUsers(responseData.users);
+      return setUsers(responseData.users);
     }
     fetchData();
   }, []);
@@ -40,7 +40,7 @@ const Home = () => {
         {allPayments.map((payment, i) =>
           <div key={i} className='payments'>
             <div className='sender-receiver'>
-              {(payment.sender_id === sessionUser.id) ?
+              {(payment?.sender_id === sessionUser?.id) ?
                 "You"
                 :
                 users[payment.sender_id - 1].name}

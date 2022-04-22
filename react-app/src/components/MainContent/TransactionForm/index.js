@@ -32,7 +32,7 @@ const TransactionForm = () => {
 
   const onCreateRequest = async(e) => {
     e.preventDefault();
-    
+
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
         .then(
@@ -76,7 +76,6 @@ const TransactionForm = () => {
             step='0.01'
             name='amount'
             value={amount}
-            // onChange={e => changeAmount(e)}
             onChange={e => setAmount(e.target.value)}
             required={true}
             placeholder='0.00'

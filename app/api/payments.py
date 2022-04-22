@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from flask import Blueprint, render_template, redirect, url_for, request
 from app.models import Comment, Like, Payment, Request, Social, User, db
 from flask_login import current_user, login_user, logout_user, login_required
@@ -16,6 +17,7 @@ def payment_get_post():
     form = RequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     receiver = User.query.filter(User.username == data['receiverName']).first()
+    
     if form.validate_on_submit():
       payment = Payment (
         amount=data['amount'],
@@ -30,12 +32,12 @@ def payment_get_post():
       receiver = User.query.get(payment.receiver_id)
       new_receiver_balance = round(float(receiver.balance) + float(data['amount']), 2)
       receiver.balance = new_receiver_balance
-      db.sesison.commit()
+      db.session.commit()
 
       sender = User.query.get(payment.sender_id)
-      new_sender_balance = round(float(sender.balance) + float(data['amount']), 2)
+      new_sender_balance = round(float(sender.balance) - float(data['amount']), 2)
       sender.balance = new_sender_balance
-      db.sesison.commit()
+      db.session.commit()
       return payment.to_dict()
 
 @bp.route('/<int:payment_id>', methods=['GET', 'PUT'])

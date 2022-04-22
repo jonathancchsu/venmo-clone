@@ -26,7 +26,7 @@ const OnePayment = () => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
       await dispatch(getComments(paymentId));
-      setLoaded(true);
+      return setLoaded(true);
     })();
   }, [dispatch, paymentId]);
 
@@ -34,17 +34,17 @@ const OnePayment = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      setUsers(responseData?.users);
+      return setUsers(responseData?.users);
     }
     fetchData();
   }, []);
 
-  const handlePost = (e) => {
+  const handlePost = async (e) => {
     e.preventDefault();
 
     if (content.length >= 1) {
-      const data = dispatch(postComment({ content, owner_id, payment_id }));
-      setContent('');
+      const data = await dispatch(postComment({ content, owner_id, payment_id }))
+        .then(() => setContent(''));
 
       if (data) {
         setErrors(data);
@@ -64,9 +64,9 @@ const OnePayment = () => {
   //   }
   // };
 
-  const handleDelete = (e, id) => {
+  const handleDelete = async (e, id) => {
     e.preventDefault();
-    dispatch(deleteComment(id));
+    await dispatch(deleteComment(id))
   }
 
   if (!loaded) {
