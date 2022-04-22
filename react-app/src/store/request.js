@@ -28,7 +28,7 @@ export const loadRequests = requests => ({
 });
 
 export const getAllRequests = () => async (dispatch) => {
-  const res = await fetch("/api/requests", {
+  const res = await csrfFetch("/api/requests", {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -46,7 +46,7 @@ export const updateRequest = updatedRequest => ({
 })
 
 export const updatingRequest = request => async(dispatch) => {
-  const res = await fetch(`/api/requests/${request.id}`, {
+  const res = await csrfFetch(`/api/requests/${request.id}`, {
     method: 'PUT',
     body: JSON.stringify(request)
   });
@@ -66,7 +66,7 @@ export const removeRequest = (removedRequest) => ({
 })
 
 export const deleteRequest = (request_id) => async(dispatch) => {
-  const res = await fetch(`/api/requests/${request_id}`, {
+  const res = await csrfFetch(`/api/requests/${request_id}`, {
     method: 'DELETE'
   });
   const requestNum = await res.json();

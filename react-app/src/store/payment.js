@@ -28,7 +28,7 @@ export const loadPayments = payments => ({
 });
 
 export const getAllPayments = () => async (dispatch) => {
-  const res = await fetch("/api/payments", {
+  const res = await csrfFetch("/api/payments", {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -45,7 +45,7 @@ export const loadOnePayment = payment => ({
 });
 
 export const getOnePayment = paymentId => async(dispatch) => {
-  const res = await fetch(`/api/payments/${paymentId}`);
+  const res = await csrfFetch(`/api/payments/${paymentId}`);
   if (res.ok) {
     const payment = await res.json();
     dispatch(loadOnePayment(payment));
