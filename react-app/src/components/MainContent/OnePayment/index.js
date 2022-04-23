@@ -74,6 +74,8 @@ const OnePayment = () => {
   };
 
   return (
+    loaded && (
+
     <div>
       <div className="payments">
         <div className='sender-receiver'>
@@ -144,6 +146,7 @@ const OnePayment = () => {
         </form>
       </div>
     </div>
+    )
   )
 }
 
