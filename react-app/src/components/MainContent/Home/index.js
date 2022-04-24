@@ -45,9 +45,8 @@ const Home = () => {
       <div>
         <div>
           <div>
-            <i className="far fa-globe-africa"></i>
+          <i className="far fa-globe-africa"></i>
           </div>
-          <i className="far fa-globe-americas"></i>
         </div>
         {allPayments.map((payment, i) =>
           <div key={i} className='payments'>

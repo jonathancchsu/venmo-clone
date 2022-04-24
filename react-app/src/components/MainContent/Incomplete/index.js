@@ -9,7 +9,7 @@ const Incomplete = (props) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const users = props.users;
-  console.log('users from incomplete',users)
+  // console.log('users from incomplete',users)
   // const [content, setContent] = useState('');
 
   const allRequests = props.allRequests;
