@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { postPayment } from '../../../store/payment';
 import { postRequest } from '../../../store/request';
+import { getOneUser } from '../../../store/session';
 
 import "./TransactionForm.css";
 
@@ -18,9 +19,11 @@ const TransactionForm = () => {
 
   const onCreatePayment = async(e) => {
     e.preventDefault();
+    console.log({ amount, receiverName, sender_id, title, privacy })
 
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
+        .then(dispatch(getOneUser(sender_id)))
         .then(() => {
           history.push('/')
         });
@@ -35,6 +38,7 @@ const TransactionForm = () => {
 
     if (title.length >= 1 && amount > 0) {
       const data = await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
+        .then(dispatch(getOneUser(sender_id)))
         .then(
           history.push(`/`)
         );

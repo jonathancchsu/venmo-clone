@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAllRequests, deleteRequest } from "../../../store/request";
 import { postPayment } from "../../../store/payment";
-import { getUsers } from "../../../store/session";
+import { getUsers, getOneUser } from "../../../store/session";
 
 import './Notification.css';
 
@@ -12,10 +12,10 @@ const Notification = () => {
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
   const users = Object.values(useSelector(state => state.session))
-  console.log('users from notification',users)
+  // console.log('users from notification',users)
   const allRequests = Object.values(useSelector(state => state.requestState))
   const sessionUser = useSelector(state => state.session.user);
-  console.log('all request from notification',allRequests)
+  // console.log('all request from notification',allRequests)
   useEffect(() => {
     (async() => {
       await dispatch(getAllRequests());
@@ -28,8 +28,9 @@ const Notification = () => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
-      console.log({ amount, receiverName, sender_id, title, privacy })
+      // console.log('payment obj',{ amount, receiverName, sender_id, title, privacy })
       await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
+      await dispatch(getOneUser(sessionUser.id))
         .then(() => {
           history.push('/')
         });

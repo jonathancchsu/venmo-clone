@@ -1,15 +1,32 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 import logo from '../../../img/venmo-logo.svg';
 import LogOutButton from '../../auth/LogoutButton';
 import solidColorLogo from '../../../img/solid-color-logo.png';
+import { getOneUser } from "../../../store/session";
+// import { login } from "../../../store/session";
 
 import './LeftSideBar.css';
 
 
 const LeftSideBar = () => {
-  const sessionUser = useSelector(state => state.session.user);
+  const [loaded, setLoaded] = useState();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session);
+
+  useEffect(() => {
+    (async() => {
+      await dispatch(getOneUser(user.id));
+      return setLoaded(true);
+    })()
+  }, [dispatch, user.id]);
+
+  if (!loaded) {
+    return null;
+  };
 
   return (
     <div className="left-side-bar">
@@ -19,14 +36,14 @@ const LeftSideBar = () => {
       <div className="user-info">
         <div className="profile-pic"></div>
         <div className="user-welcome">
-          Hi, {sessionUser.name}
+          Hi, {sessionUser[user.id].name}
           <div className="usertag">
-            @{sessionUser.username}
+            @{sessionUser[user.id].username}
           </div>
         </div>
       </div>
       <div className="balance">
-        <p>$ {sessionUser.balance} in Venmo</p>
+        <p>$ {sessionUser[user.id].balance} in Venmo</p>
       </div>
       <div className="side-btn">
         <Link className="incomplete" to='/incomplete'>

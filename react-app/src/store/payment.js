@@ -69,9 +69,10 @@ let newState = {...state};
       newState[action.payment.id] = action.payment;
 
       return newState
-    case ADD_PAYMENT:
+    case ADD_PAYMENT:{
       newState[action.payment.id] = action.payment;
       return newState;
+    }
     default:
       return state;
   }

@@ -14,10 +14,11 @@ def payment_get_post():
 
   if request.method == 'POST':
     data = request.json
+    print('data from payments api',data)
     form = RequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    receiver = User.query.filter(User.username == data['receiverName'] or User.name == data['receiverName']).first()
-
+    receiver = User.query.filter(User.username == data['receiverName']).first()
+    print('receiver from payments api', receiver)
     if form.validate_on_submit():
       payment = Payment (
         amount=data['amount'],

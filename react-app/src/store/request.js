@@ -16,8 +16,6 @@ export const postRequest = (request) => async(dispatch) => {
 
   const new_request = await res.json();
   dispatch(addRequest(new_request));
-
-  return new_request;
 };
 
 //------------------------------load requests---------------------------------
