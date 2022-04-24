@@ -10,6 +10,7 @@ const OnePayment = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
+  const [comments, setComments] = useState([]);
   const [errors, setErrors] = useState([]);
 
   // const [edit, setEdit] = useState('');
@@ -31,6 +32,10 @@ const OnePayment = () => {
       return setLoaded(true);
     })();
   }, [dispatch, paymentId]);
+
+  useEffect(() => {
+    setComments(commentsObj);
+  }, [commentsObj]);
 
   useEffect(() => {
     async function fetchData() {
@@ -75,8 +80,6 @@ const OnePayment = () => {
   };
 
   return (
-    loaded && (
-
     <div>
       <div className="payments">
         <div className='sender-receiver'>
@@ -105,7 +108,7 @@ const OnePayment = () => {
 
         </div>
         <div className="comments-container">
-          {commentsObj?.map((comment, i) =>
+          {comments?.map((comment, i) =>
             <div key={i} className="comment">
               <div className="comment-content">
                 {comment.content}
@@ -148,7 +151,6 @@ const OnePayment = () => {
       </div>
     </div>
     )
-  )
 }
 
 export default OnePayment;
