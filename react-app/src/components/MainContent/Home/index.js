@@ -62,7 +62,7 @@ const Home = () => {
               {payment.title}
             </div>
             <Link to={`/story/${payment.id}`}>
-              comments
+            <i className="fas fa-comment"></i>
             </Link>
           </div>)}
       </div>

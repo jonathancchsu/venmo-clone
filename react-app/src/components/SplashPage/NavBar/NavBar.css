@@ -1,6 +1,6 @@
 .navbar {
   height: 10vh;
-  width: 80%;
+  width: 90%;
   display: grid;
   grid-template-columns: 6fr 1fr;
   padding-left: 200px;
@@ -11,6 +11,7 @@
 .btns-container {
   display: flex;
   align-items: center;
+  padding-right: 30px;
 }
 
 .splash-btn {
@@ -24,6 +25,13 @@
   align-items: center;
   justify-content: center;
   justify-self: center;
+  width: 70%;
+}
+
+.logo {
+  padding-left: 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .btn {

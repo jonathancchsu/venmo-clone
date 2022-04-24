@@ -10,10 +10,10 @@
 
 .form {
   background-color: #f7f7f7;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 120px;
+  padding-right: 120px;
   padding-top: 30px;
-  padding-bottom: 170px;
+  padding-bottom: 300px;
   width: 300px;
   max-width: 300px;
   height: 150px;
@@ -55,10 +55,31 @@
   color: white;
   border: 0px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .login-btn:hover {
   cursor: pointer;
+}
+
+.demo-btn {
+  border: 0px;
+  background-color: #f7f7f7;
+  margin-top: 5px;
+  color: #551A8B;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.demo-btn:hover {
+  cursor:pointer;
+}
+
+.demotext {
+  margin-right: 20px;
+  width: 120%;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 .email {
@@ -85,4 +106,9 @@
 
 .errors {
   padding-bottom: 10px;
+}
+
+.allItems {
+  margin-right: 0px;
+
 }

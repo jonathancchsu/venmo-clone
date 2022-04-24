@@ -34,6 +34,9 @@ const Incomplete = () => {
 
   return (
     <div>
+      <h3>
+        Incomplete
+      </h3>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
           {(request.sender_id  === sessionUser.id) ?

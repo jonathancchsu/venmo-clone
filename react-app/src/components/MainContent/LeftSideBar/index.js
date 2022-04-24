@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import logo from '../../../img/venmo-logo.svg';
 import LogOutButton from '../../auth/LogoutButton';
+import solidColorLogo from '../../../img/solid-color-logo.png';
 
 import './LeftSideBar.css';
 
@@ -13,7 +14,7 @@ const LeftSideBar = () => {
   return (
     <div className="left-side-bar">
       <Link to='/'>
-        <img src={logo} alt='logo' />
+        <img src={logo} alt='logo' className='leftLogo' />
       </Link>
       <div className="user-info">
         <div className="profile-pic"></div>
@@ -42,7 +43,7 @@ const LeftSideBar = () => {
       </div>
       {window.location.href.split('/')[3] !=='pay' ?
         <Link className="pay-btn getVenmo btn" to='/pay'>
-          {/* usefont awesome for logo */}
+          <img src={solidColorLogo} className='solid-color-logo'/>
           Pay or Request
         </Link>
         :

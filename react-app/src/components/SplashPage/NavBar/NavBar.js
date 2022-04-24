@@ -7,9 +7,11 @@ import './NavBar.css'
 const NavBar = () => {
   return (
     <div className='navbar'>
-      <Link to='/' className='splash-logo'>
+      <div className='splash-logo'>
+      <Link to='/' className='logo'>
         <img src={logo} alt='logo' />
       </Link>
+      </div>
       <div className='btns-container'>
         <div className='splash-btn'>
           <div className='btn1'>

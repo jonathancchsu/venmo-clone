@@ -35,6 +35,9 @@ const Notification = () => {
 
   return (
     <div>
+      <h3>
+        Notifications
+      </h3>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
           {(request.receiver_id === sessionUser.id) ?

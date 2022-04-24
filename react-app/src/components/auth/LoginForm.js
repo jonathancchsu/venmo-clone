@@ -44,6 +44,7 @@ const LoginForm = () => {
             Sign in to Venmo
           </h2>
           <div className='form'>
+            <div className='allItems'>
               <div className='login-items'>
                 <div className="error-div">
                   {errors.map((error, ind) => (
@@ -78,6 +79,9 @@ const LoginForm = () => {
                 Login
               </button>
             </form>
+            <p className='demotext'>Don't have an account? <a className='login-sgnup' href='/sign-up' style={{textDecoration:'none'}}>Sign up</a></p>
+            <p className='demotext'>Want to check out the site? Log in as a<button className='demo-btn' style={{textDecoration:'none'}} onClick={() => dispatch(login('demo@aa.io', 'password'))}>Demo user</button></p>
+            </div>
           </div>
         </div>
       </div>
