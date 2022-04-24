@@ -16,8 +16,8 @@ def payment_get_post():
     data = request.json
     form = RequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    receiver = User.query.filter(User.username == data['receiverName']).first()
-    
+    receiver = User.query.filter(User.username == data['receiverName'] or User.name == data['receiverName']).first()
+
     if form.validate_on_submit():
       payment = Payment (
         amount=data['amount'],

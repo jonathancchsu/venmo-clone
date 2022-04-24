@@ -8,6 +8,7 @@ const Notification = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
+  console.log(users)
 
   const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
   const sessionUser = useSelector(state => state.session.user);
@@ -36,10 +37,10 @@ const Notification = () => {
     <div>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
-          {(request.sender_id === sessionUser.id) ?
+          {(request.receiver_id === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`${users[request.receiver_id - 1]?.name} requests`}
+                {`${users[request.sender_id - 1]?.name} requests`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`} {`${request.receiver_id}`}
@@ -57,14 +58,7 @@ const Notification = () => {
               </div>
             </div>
             :
-            <div>
-              <div>
-                Nontifications
-              </div>
-              <div>
-                You can find things that require your attention here.
-              </div>
-            </div>
+            <></>
           }
         </div>
       )}

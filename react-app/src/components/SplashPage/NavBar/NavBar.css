@@ -1,24 +1,60 @@
 .navbar {
   height: 10vh;
-  display: flex;
-  flex-direction: row;
   width: 80%;
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+  padding-left: 200px;
+  background-color: #fff;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.btns-container {
+  display: flex;
+  align-items: center;
 }
 
 .splash-btn {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .splash-logo {
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: center;
 }
 
-.btn1 {
-  display: flex;
+.btn {
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: SctoGrotesk Bold;
+  font-size: 17px;
+  font-weight: normal;
+  /* letter-spacing: -0.15px; */
+  line-height: 28.5px;
   align-items: center;
-  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 45px;
+  border: 2.25px solid #2f3033;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  margin-right: 30px;
+  overflow: hidden;
+  padding: 5px 30px;
+  position: relative;
+}
+
+.getVenmo {
+  background-color: #0074de;
+  border: 2.25px solid #0074de;
+  color: #fff;
+
+}
+
+.navVenmo {
+  width: 150px;
+  padding-top: 10px;
 }

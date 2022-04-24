@@ -36,10 +36,10 @@ const Incomplete = () => {
     <div>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
-          {(request.receiver_id  === sessionUser.id) ?
+          {(request.sender_id  === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`Request to ${users[request.sender_id - 1]?.name}`}
+                {`Request to ${users[request.receiver_id - 1]?.name}`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}
@@ -57,14 +57,7 @@ const Incomplete = () => {
               </div>
             </div>
             :
-            <div>
-              <div>
-                Requests from you
-              </div>
-              <div>
-                Send your requests for money here while they're awaiting approval.
-              </div>
-            </div>
+            <></>
           }
         </div>
       )}

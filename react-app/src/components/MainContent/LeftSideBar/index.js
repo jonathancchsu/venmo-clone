@@ -24,6 +24,22 @@ const LeftSideBar = () => {
           </div>
         </div>
       </div>
+      <div className="balance">
+        <p>$ {sessionUser.balance} in Venmo</p>
+      </div>
+      <div>
+        <Link className="incomplete btn" to='/incomplete'>
+          Incomplete
+        </Link>
+      </div>
+      <div>
+        <Link className="notification btn" to='/notification'>
+          Notification
+        </Link>
+      </div>
+      <div>
+        <LogOutButton />
+      </div>
       {window.location.href.split('/')[3] !=='pay' ?
         <Link className="pay-btn" to='/pay'>
           {/* usefont awesome for logo */}
@@ -32,22 +48,6 @@ const LeftSideBar = () => {
         :
         <></>
       }
-      <div className="balance">
-        <p>$ {sessionUser.balance} in Venmo</p>
-      </div>
-      <div>
-        <Link className="incomplete" to='/incomplete'>
-          Incomplete
-        </Link>
-      </div>
-      <div>
-        <Link className="notification" to='/notification'>
-          Notification
-        </Link>
-      </div>
-      <div>
-        <LogOutButton />
-      </div>
     </div>
   )
 }

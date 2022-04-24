@@ -14,14 +14,6 @@ import Notification from './Notofication';
 import './MainContent.css';
 
 function MainContent({ way }) {
-  // const dispatch = useDispatch();
-  // const sessionUser = useSelector(state => state.session.user);
-  // const payments = useSelector(state => state.paymentState.entries);
-
-  // useEffect(() => {
-  //   dispatch(getAllPayments());
-  // }, [dispatch]);
-
   if (way === 'onePayment') {
     return (
       <div className='main-container'>

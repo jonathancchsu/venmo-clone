@@ -10,16 +10,18 @@ const NavBar = () => {
       <Link to='/' className='splash-logo'>
         <img src={logo} alt='logo' />
       </Link>
-      <div className='splash-btn'>
-        <div className='btn1'>
-          <NavLink to='/login' exact={true} activeClassName='active' className='btn'>
-            Login
-          </NavLink>
-        </div>
-        <div className='btn1'>
-          <NavLink to='/sign-up' exact={true} activeClassName='active' className='btn'>
-            Get Venmo
-          </NavLink>
+      <div className='btns-container'>
+        <div className='splash-btn'>
+          <div className='btn1'>
+            <NavLink to='/login' exact={true} activeClassName='active' className='btn'>
+              Login
+            </NavLink>
+          </div>
+          <div className='btn1'>
+            <NavLink to='/sign-up' exact={true} activeClassName='active' className='btn getVenmo navVenmo'>
+              Get Venmo
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

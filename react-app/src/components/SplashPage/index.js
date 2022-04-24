@@ -8,16 +8,18 @@ function SplashPage() {
     <div className='splash-container'>
       <NavBar />
       <div className='splash'>
-        <h1>
-          Fast, safe, social payments
-        </h1>
-        <h4>
-          Pay. Get Paid. Share. Join all the people who use the Venmo app.
-        </h4>
-        <div>
-        <NavLink to='/sign-up' exact={true} activeClassName='active' className='btn'>
-          Get Venmo
-        </NavLink>
+        <div className='background'>
+          <h1>
+            Fast, safe, social payments
+          </h1>
+          <h4 className='subtext'>
+            Pay. Get Paid. Share. Join all the people who use the Venmo app.
+          </h4>
+          <div>
+          <NavLink to='/sign-up' exact={true} activeClassName='active' className='splashbtn'>
+            Get Venmo
+          </NavLink>
+          </div>
         </div>
       </div>
     </div>

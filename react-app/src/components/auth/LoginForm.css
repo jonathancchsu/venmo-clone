@@ -1,0 +1,87 @@
+.form-container {
+  padding-top: 10px;
+}
+
+.form-page {
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.form {
+  background-color: #f7f7f7;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 30px;
+  padding-bottom: 140px;
+  width: 300px;
+  max-width: 300px;
+  height: 150px;
+  max-height: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in-text {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  padding-top: 0px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.login-items {
+  padding: 10px;
+  display: flex;
+  align-content:flex-start;
+  justify-content: flex-start;
+  font-size: 17px;
+}
+
+.input-fileds {
+  outline: none;
+}
+
+.label {
+  padding-right: 8px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.login-btn {
+  background-color: #3d95ce;
+  font-family:Arial, Helvetica, sans-serif;
+  color: white;
+  border: 0px;
+  margin-top: 20px;
+}
+
+.login-btn:hover {
+  cursor: pointer;
+}
+
+.email {
+  padding-right: 40px;
+}
+
+.email-div {
+  padding-bottom: 20px;
+}
+
+.password-div {
+  padding-bottom: 20px;
+}
+
+.error-div {
+  display: flex;
+  flex-direction: column;
+  font-size: 17px;
+  font-family:Arial, Helvetica, sans-serif;
+  color: red;
+  height: 40px;
+  padding-bottom: 20px;
+}
+
+.errors {
+  padding-bottom: 10px;
+}
