@@ -11,7 +11,7 @@ const LogoutButton = () => {
     history.push('/')
   };
 
-  return <div onClick={onLogout} className='btn'>Logout</div>;
+  return <div onClick={onLogout} className='side-btn'>Logout</div>;
 };
 
 export default LogoutButton;

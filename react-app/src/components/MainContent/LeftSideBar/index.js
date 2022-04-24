@@ -27,13 +27,13 @@ const LeftSideBar = () => {
       <div className="balance">
         <p>$ {sessionUser.balance} in Venmo</p>
       </div>
-      <div>
-        <Link className="incomplete btn" to='/incomplete'>
+      <div className="side-btn">
+        <Link className="incomplete" to='/incomplete'>
           Incomplete
         </Link>
       </div>
-      <div>
-        <Link className="notification btn" to='/notification'>
+      <div className="side-btn">
+        <Link className="notification" to='/notification'>
           Notification
         </Link>
       </div>
@@ -41,7 +41,7 @@ const LeftSideBar = () => {
         <LogOutButton />
       </div>
       {window.location.href.split('/')[3] !=='pay' ?
-        <Link className="pay-btn" to='/pay'>
+        <Link className="pay-btn getVenmo btn" to='/pay'>
           {/* usefont awesome for logo */}
           Pay or Request
         </Link>

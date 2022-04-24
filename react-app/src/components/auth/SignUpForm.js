@@ -57,60 +57,78 @@ const SignUpForm = () => {
       <div>
         <NavBar />
       </div>
-      <form onSubmit={onSignUp}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
+      <div className='form-page'>
+        <div className='form-container'>
+          <h2 className='sign-in-text'>
+            Get Venmo
+          </h2>
+          <div className='form getvenmo'>
+              <div className='error-div'>
+                {errors.map((error, ind) => (
+                  <div key={ind} className='errors'>{error}</div>
+                ))}
+              </div>
+            <form onSubmit={onSignUp}>
+              <div className='login-items'>
+                <label className='label'>User Tag:</label>
+                <input
+                  type='text'
+                  name='username'
+                  onChange={updateUsername}
+                  value={username}
+                  required={true}
+                  placeholder='Username'
+                ></input>
+              </div>
+              <div className='login-items'>
+                <label className='label'>Name:</label>
+                <input
+                  type='text'
+                  name='name'
+                  onChange={updateName}
+                  value={name}
+                  required={true}
+                  placeholder='Name'
+                ></input>
+              </div>
+              <div className='login-items'>
+                <label className='label'>Email:</label>
+                <input
+                  type='text'
+                  name='email'
+                  onChange={updateEmail}
+                  value={email}
+                  required={true}
+                  placeholder='Email'
+                ></input>
+              </div>
+              <div className='login-items'>
+                <label className='label'>Password:</label>
+                <input
+                  type='password'
+                  name='password'
+                  onChange={updatePassword}
+                  value={password}
+                  required={true}
+                  placeholder='Password'
+                ></input>
+              </div>
+              <div className='login-items'>
+                <label className='label'>Repeat Password:</label>
+                <input
+                  type='password'
+                  name='repeat_password'
+                  onChange={updateRepeatPassword}
+                  value={repeatPassword}
+                  required={true}
+                  placeholder='Repeat Password'
+                ></input>
+              </div>
+              <button type='submit' className='login-btn signup'>Sign Up</button>
+            </form>
+          </div>
         </div>
-        <div>
-          <label>User Tag</label>
-          <input
-            type='text'
-            name='username'
-            onChange={updateUsername}
-            value={username}
-          ></input>
-        </div>
-        <div>
-          <label>Name</label>
-          <input
-            type='text'
-            name='name'
-            onChange={updateName}
-            value={name}
-          ></input>
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type='text'
-            name='email'
-            onChange={updateEmail}
-            value={email}
-          ></input>
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type='password'
-            name='password'
-            onChange={updatePassword}
-            value={password}
-          ></input>
-        </div>
-        <div>
-          <label>Repeat Password</label>
-          <input
-            type='password'
-            name='repeat_password'
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required={true}
-          ></input>
-        </div>
-        <button type='submit'>Sign Up</button>
-      </form>
+      </div>
     </>
   );
 };

@@ -13,7 +13,7 @@
   padding-left: 100px;
   padding-right: 100px;
   padding-top: 30px;
-  padding-bottom: 140px;
+  padding-bottom: 170px;
   width: 300px;
   max-width: 300px;
   height: 150px;
@@ -37,6 +37,7 @@
   align-content:flex-start;
   justify-content: flex-start;
   font-size: 17px;
+  flex-direction: column;
 }
 
 .input-fileds {

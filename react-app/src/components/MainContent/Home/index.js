@@ -16,13 +16,6 @@ const Home = () => {
   const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
-    (async() => {
-      await dispatch(getAllPayments());
-      return setLoaded(true);
-    })();
-  }, [dispatch]);
-
-  useEffect(() => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
@@ -30,6 +23,13 @@ const Home = () => {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    (async() => {
+      await dispatch(getAllPayments());
+      return setLoaded(true);
+    })();
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
