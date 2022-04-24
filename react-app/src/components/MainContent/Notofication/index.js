@@ -27,14 +27,14 @@ const Notification = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      setUsersObj(responseData?.users.reverse());
+      setUsersObj(responseData?.users);
     }
     fetchData();
   }, []);
 
-  usersObj.forEach((user, i) => {
+  usersObj.forEach((user) => {
     let userObj = {};
-    userObj[i] = user.name;
+    userObj[user.id] = user.name;
     users.push(userObj);
   })
 
@@ -42,7 +42,7 @@ const Notification = () => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
-      const data = await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
+      await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
         .then(() => {
           history.push('/')
         });
@@ -68,7 +68,7 @@ const Notification = () => {
           {(request.receiver_id === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`${users[request.sender_id ]?.[request.sender_id ]} requests`}
+                {`${users[request.sender_id - 1]?.[request.sender_id ]} requests`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}

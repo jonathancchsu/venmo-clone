@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllRequests, updatingRequest, deleteRequest } from "../../../store/request";
+import { getAllRequests, deleteRequest } from "../../../store/request";
+//updatingRequest,
 
 import './Incomplete.css';
 
@@ -9,10 +10,25 @@ const Incomplete = () => {
   const [loaded, setLoaded] = useState(false);
   const users = [];
   const [usersObj, setUsersObj] = useState([]);
-  const [content, setContent] = useState('');
+  // const [content, setContent] = useState('');
 
   const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
   const sessionUser = useSelector(state => state.session.user);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/api/users/');
+      const responseData = await response.json();
+      return setUsersObj(responseData?.users);
+    }
+    fetchData();
+  }, []);
+
+  usersObj.forEach((user) => {
+    let userObj = {};
+    userObj[user.id] = user.name;
+    users?.push(userObj);
+  });
 
   useEffect(() => {
     (async() => {
@@ -20,21 +36,6 @@ const Incomplete = () => {
       setLoaded(true);
     })();
   }, [dispatch]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/users/');
-      const responseData = await response.json();
-      setUsersObj(responseData?.users.reverse());
-    }
-    fetchData();
-  }, []);
-
-  usersObj.forEach((user, i) => {
-    let userObj = {};
-    userObj[i] = user.name;
-    users.push(userObj);
-  })
 
   // const handleEdit = async (e, id, owner_id, payment_id) => {
   //   e.preventDefault();
@@ -64,10 +65,10 @@ const Incomplete = () => {
       </h3>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
-          {(request.sender_id  === sessionUser.id) ?
+          {(request?.sender_id  === sessionUser?.id) ?
             <div>
               <div className="requesting">
-                {`Request to ${users[request.receiver_id]?.[request.receiver_id]}`}
+                {`Request to ${users[request?.receiver_id - 1]?.[request?.receiver_id]}`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}

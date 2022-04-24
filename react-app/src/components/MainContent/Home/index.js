@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-// import { Link } from 'react-router-dom'
 
 import { getAllPayments } from '../../../store/payment'
 
@@ -10,7 +9,8 @@ import './Home.css'
 const Home = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
+  const users = [];
+  const [usersObj, setUsersObj] = useState([]);
 
   const allPayments = useSelector(state => state.paymentState?.entries[0]?.payments);
   const sessionUser = useSelector(state => state.session.user);
@@ -19,10 +19,16 @@ const Home = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      return setUsers(responseData.users);
+      return setUsersObj(responseData?.users);
     }
     fetchData();
   }, []);
+
+  usersObj.forEach((user) => {
+    let userObj = {};
+    userObj[user.id] = user.name;
+    users.push(userObj);
+  })
 
   useEffect(() => {
     (async() => {
@@ -49,12 +55,12 @@ const Home = () => {
               {(payment?.sender_id === sessionUser?.id) ?
                 "You"
                 :
-                users[payment.sender_id - 1].name}
+                users[payment.sender_id - 1]?.[payment.sender_id]}
               {` paid `}
               {(payment.receiver_id === sessionUser.id) ?
                 "You"
                 :
-                users[payment.receiver_id - 1].name}
+                users[payment.receiver_id - 1]?.[payment.receiver_id]}
             </div>
             {payment.sender_id === sessionUser.id ||
               payment.receiver_id === sessionUser.id ?
