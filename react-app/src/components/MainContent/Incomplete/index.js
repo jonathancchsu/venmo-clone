@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllRequests } from "../../../store/request";
+import { getAllRequests, updatingRequest, deleteRequest } from "../../../store/request";
 
 import './Incomplete.css';
 
 const Incomplete = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
+  const users = [];
+  const [usersObj, setUsersObj] = useState([]);
+  const [content, setContent] = useState('');
 
   const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
   const sessionUser = useSelector(state => state.session.user);
@@ -23,10 +25,33 @@ const Incomplete = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      setUsers(responseData?.users.reverse());
+      setUsersObj(responseData?.users.reverse());
     }
     fetchData();
   }, []);
+
+  usersObj.forEach((user, i) => {
+    let userObj = {};
+    userObj[i] = user.name;
+    users.push(userObj);
+  })
+
+  // const handleEdit = async (e, id, owner_id, payment_id) => {
+  //   e.preventDefault();
+
+  //   if(content.length >= 1) {
+  //     const data = await dispatch(updatingRequest({id, content, owner_id, payment_id}));
+  //     setContent('');
+  //   }
+  //   if (data) {
+  //     setErrors(data);
+  //   }
+  // }
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    await dispatch(deleteRequest(id));
+  }
 
   if (!loaded) {
     return null;
@@ -42,7 +67,7 @@ const Incomplete = () => {
           {(request.sender_id  === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`Request to ${users[request.receiver_id - 1]?.name}`}
+                {`Request to ${users[request.receiver_id]?.[request.receiver_id]}`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}
@@ -54,7 +79,7 @@ const Incomplete = () => {
                 <button className="edit-btn">
                   edit
                 </button>
-                <button className="cancel-btn">
+                <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>
                   cancel
                 </button>
               </div>

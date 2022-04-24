@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllRequests } from "../../../store/request";
+import { useHistory } from "react-router-dom";
+import { getAllRequests, deleteRequest } from "../../../store/request";
+import { postPayment } from "../../../store/payment";
 
 import './Notification.css';
 
 const Notification = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [loaded, setLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
-  console.log(users)
+  const users = [];
+  const [usersObj, setUsersObj] = useState([]);
 
   const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
   const sessionUser = useSelector(state => state.session.user);
@@ -24,10 +27,32 @@ const Notification = () => {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
-      setUsers(responseData?.users.reverse());
+      setUsersObj(responseData?.users.reverse());
     }
     fetchData();
   }, []);
+
+  usersObj.forEach((user, i) => {
+    let userObj = {};
+    userObj[i] = user.name;
+    users.push(userObj);
+  })
+
+  const onCreatePayment = async(e, amount, receiverName, sender_id, title, privacy) => {
+    e.preventDefault();
+
+    if (title.length >= 1 && amount > 0) {
+      const data = await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
+        .then(() => {
+          history.push('/')
+        });
+    }
+  };
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    await dispatch(deleteRequest(id));
+  }
 
   if (!loaded) {
     return null;
@@ -43,19 +68,25 @@ const Notification = () => {
           {(request.receiver_id === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`${users[request.sender_id - 1]?.name} requests`}
+                {`${users[request.sender_id ]?.[request.sender_id ]} requests`}
               </div>
               <div className="requesting-amount">
-                {`$${request.amount}`} {`${request.receiver_id}`}
+                {`$${request.amount}`}
               </div>
               <div className="request-title">
                 {request.title}
               </div>
               <div className="request-btn">
-                <button className="edit-btn">
+                <button className="edit-btn" onClick={e =>
+                  onCreatePayment(e,
+                                  request.amount,
+                                  users[request.sender_id ]?.[request.sender_id],
+                                  request.receiver_id,
+                                  request.title,
+                                  request.privacy)}>
                   send
                 </button>
-                <button className="cancel-btn">
+                <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>
                   cancel
                 </button>
               </div>
