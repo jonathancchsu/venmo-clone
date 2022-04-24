@@ -24,7 +24,7 @@ const Home = () => {
     fetchData();
   }, []);
 
-  usersObj.forEach((user) => {
+  usersObj.forEach((user, i) => {
     let userObj = {};
     userObj[user.id] = user.name;
     users.push(userObj);

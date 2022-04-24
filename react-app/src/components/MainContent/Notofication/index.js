@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAllRequests, deleteRequest } from "../../../store/request";
 import { postPayment } from "../../../store/payment";
 
 import './Notification.css';
 
-const Notification = () => {
+const Notification = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
-  const users = [];
-  const [usersObj, setUsersObj] = useState([]);
-
-  const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
-  const sessionUser = useSelector(state => state.session.user);
+  const users = props.users;
+  console.log('users from notification',users)
+  const allRequests = props.allRequests;
+  const sessionUser = props.sessionUser;
 
   useEffect(() => {
     (async() => {
@@ -23,30 +22,17 @@ const Notification = () => {
     })();
   }, [dispatch]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/users/');
-      const responseData = await response.json();
-      setUsersObj(responseData?.users);
-    }
-    fetchData();
-  }, []);
-
-  usersObj.forEach((user) => {
-    let userObj = {};
-    userObj[user.id] = user.name;
-    users.push(userObj);
-  })
-
   const onCreatePayment = async(e, amount, receiverName, sender_id, title, privacy) => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
+      console.log({ amount, receiverName, sender_id, title, privacy })
       await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
         .then(() => {
           history.push('/')
         });
     }
+
   };
 
   const handleDelete = async (e, id) => {
@@ -77,13 +63,16 @@ const Notification = () => {
                 {request.title}
               </div>
               <div className="request-btn">
-                <button className="edit-btn" onClick={e =>
+                <button className="edit-btn" onClick={e => {
                   onCreatePayment(e,
                                   request.amount,
-                                  users[request.sender_id ]?.[request.sender_id],
+                                  users[request.sender_id - 1]?.[request.sender_id],
                                   request.receiver_id,
                                   request.title,
-                                  request.privacy)}>
+                                  request.privacy)
+                  handleDelete(e, request.id)
+                  }
+                }>
                   send
                 </button>
                 <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>

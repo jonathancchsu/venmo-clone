@@ -1,34 +1,19 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllRequests, deleteRequest } from "../../../store/request";
 //updatingRequest,
 
 import './Incomplete.css';
 
-const Incomplete = () => {
+const Incomplete = (props) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const users = [];
-  const [usersObj, setUsersObj] = useState([]);
+  const users = props.users;
+  console.log('users from incomplete',users)
   // const [content, setContent] = useState('');
 
-  const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
-  const sessionUser = useSelector(state => state.session.user);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/users/');
-      const responseData = await response.json();
-      return setUsersObj(responseData?.users);
-    }
-    fetchData();
-  }, []);
-
-  usersObj.forEach((user) => {
-    let userObj = {};
-    userObj[user.id] = user.name;
-    users?.push(userObj);
-  });
+  const allRequests = props.allRequests;
+  const sessionUser = props.sessionUser;
 
   useEffect(() => {
     (async() => {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
 import { getComments ,postComment,  deleteComment } from "../../../store/comment";
 //updatingComment,
 import './OnePayment.css';
 
-const OnePayment = () => {
+const OnePayment = (props) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
@@ -17,9 +17,9 @@ const OnePayment = () => {
   const [content, setContent] = useState('');
   const { paymentId } = useParams();
 
-  const payment = useSelector(state => state.paymentState?.entries[0]);
+  const payment = props.payment;
   // console.log('payment from one payment', payment)
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = props.sessionUser;
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
   const commentsObj = payment?.comments?.comments;
