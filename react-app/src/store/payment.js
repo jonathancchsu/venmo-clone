@@ -15,9 +15,8 @@ export const postPayment = (payment) => async(dispatch) => {
   });
 
   const new_payment = await res.json();
-  dispatch(addPayment(new_payment));
 
-  return new_payment;
+  dispatch(addPayment(new_payment));
 };
 
 //------------------------------load payments---------------------------------
@@ -53,16 +52,26 @@ export const getOnePayment = paymentId => async(dispatch) => {
 }
 
 //------------------------------payments reducer---------------------------------
-const initialState = { entries: [] }
+const paymentReducer = (state ={}, action) => {
+let newState = {...state};
 
-const paymentReducer = (state = initialState, action) => {
   switch(action.type) {
     case LOADALL_PAYMENTS:
-      return {entries: [action.payments]}
+      if (action.payments) {
+        action.payments.payments.forEach(
+          (payment) => (newState[payment.id] = payment)
+        )
+      }else {
+        newState ={}
+      }
+      return newState;
     case LOADONE_PAYMENT:
-      return {entries: [action.payment]}
+      newState[action.payment.id] = action.payment;
+
+      return newState
     case ADD_PAYMENT:
-      return {...state, entries: [...state.entries, action.payment]}
+      newState[action.payment.id] = action.payment;
+      return newState;
     default:
       return state;
   }

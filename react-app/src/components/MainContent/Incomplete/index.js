@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllRequests, deleteRequest } from "../../../store/request";
 //updatingRequest,
+import { getUsers } from "../../../store/session";
 
 import './Incomplete.css';
 
-const Incomplete = (props) => {
+const Incomplete = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const users = props.users;
+  // const users = props.users;
   // console.log('users from incomplete',users)
   // const [content, setContent] = useState('');
 
-  const allRequests = props.allRequests;
-  const sessionUser = props.sessionUser;
-
+  const allRequests = Object.values(useSelector(state => state.requestState))
+  // console.log('all requests from incomplete',allRequests)
+  const sessionUser = useSelector((state) => state.session.user)
+  const users = Object.values(useSelector(state => state.session))
+  // console.log('users from incomplete', users)
   useEffect(() => {
     (async() => {
       await dispatch(getAllRequests());
+      await dispatch(getUsers());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -53,7 +57,7 @@ const Incomplete = (props) => {
           {(request?.sender_id  === sessionUser?.id) ?
             <div>
               <div className="requesting">
-                {`Request to ${users[request?.receiver_id - 1]?.[request?.receiver_id]}`}
+                {`Request to ${users[request?.receiver_id - 1]?.name}`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}

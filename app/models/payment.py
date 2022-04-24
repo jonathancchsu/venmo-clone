@@ -22,6 +22,7 @@ class Payment(db.Model):
   comments = relationship('Comment', backref='payment', cascade='all, delete-orphan')
   likes = relationship('Like', backref='payment', cascade='all, delete-orphan')
 
+
   def to_dict(self):
     return {
       'id': self.id,

@@ -11,9 +11,9 @@ import Notification from './Notofication';
 import './MainContent.css';
 
 function MainContent({ way }) {
-  const allRequests = useSelector(state => state.requestState?.entries[0]?.requests)
+  const allRequests = useSelector(state => state.requestState?.requests)
   const sessionUser = useSelector(state => state.session.user);
-  const payment = useSelector(state => state.paymentState?.entries[0]);
+  const payment = useSelector(state => state.paymentState?.payments);
   const users = [];
   const [usersObj, setUsersObj] = useState([]);
 
@@ -32,7 +32,7 @@ function MainContent({ way }) {
     users.push(userObj);
   })
 
-  console.log('users from main content',users)
+  // console.log('users from main content',users)
 
   if (way === 'onePayment') {
     return (

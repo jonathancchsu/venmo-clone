@@ -75,21 +75,32 @@ export const deleteRequest = (request_id) => async(dispatch) => {
 }
 
 //------------------------------requests reducer---------------------------------
-const initialState = { entries: [] }
-
-const requestReducer = (state = initialState, action) => {
+const requestReducer = (state = {}, action) => {
   let newState = { ...state };
 
   switch(action.type) {
     case LOADALL_REQUESTS:
-      return {entries: [action.requests]}
-    case ADD_REQUEST:
-      return {...state, entries: [...state.entries, action.request]}
-    case UPDATE_REQUEST:
-      return {...state, [action.updatedRequest.id]: action.id}
-    case DELETE_REQUEST:
-      delete newState.entries[action.removedRequest]
+      if (action.requests) {
+        action.requests.requests.forEach(
+          (request) => (newState[request.id] = request))
+      } else {
+        newState = {}
+      }
       return newState
+    case ADD_REQUEST:{
+      newState[action.request.id] = action.request;
+
+      return newState;
+    }
+    case UPDATE_REQUEST: {
+      newState[action.request.id] = action.request;
+
+      return newState;
+    }
+    case DELETE_REQUEST:
+      delete newState[action.removedRequest.request_id];
+
+      return newState;
     default:
       return state;
   }

@@ -1,50 +1,41 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
 import { getComments ,postComment,  deleteComment } from "../../../store/comment";
 //updatingComment,
+import { getUsers } from "../../../store/session";
 import './OnePayment.css';
+
 
 const OnePayment = (props) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]);
+
+  // const [comments, setComments] = useState([]);
   const [errors, setErrors] = useState([]);
 
   // const [edit, setEdit] = useState('');
   const [content, setContent] = useState('');
   const { paymentId } = useParams();
 
-  const payment = props.payment;
+  const payment = Object.values(useSelector(state => state.paymentState))[0];
   // console.log('payment from one payment', payment)
   const sessionUser = props.sessionUser;
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
-  const commentsObj = payment?.comments?.comments;
-  // const commentState = useSelector(state => state.commentState?.entries)
-    // console.log(commentState)
+  // const commentsObj = payment?.comments?.comments;
+  const commentsObj = Object.values(useSelector(state => state.commentState))
+  const users = Object.values(useSelector(state => state.session))
+  // console.log('users from one playment',users)
   useEffect(() => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
       await dispatch(getComments(paymentId));
+      await dispatch(getUsers());
       return setLoaded(true);
     })();
   }, [dispatch, paymentId]);
-
-  useEffect(() => {
-    setComments(commentsObj);
-  }, [commentsObj]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/users/');
-      const responseData = await response.json();
-      return setUsers(responseData?.users);
-    }
-    fetchData();
-  }, []);
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -86,12 +77,12 @@ const OnePayment = (props) => {
           {(payment?.sender_id === sessionUser?.id) ?
             "You"
             :
-            users[payment?.sender_id - 1].name}
+            users[payment?.sender_id + 1].name}
           {` paid `}
           {(payment.receiver_id === sessionUser.id) ?
             "You"
             :
-            users[payment?.receiver_id - 1]?.name}
+            users[payment?.receiver_id + 1]?.name}
         </div>
         {payment.sender_id === sessionUser.id ||
           payment.receiver_id === sessionUser.id ?
@@ -108,7 +99,7 @@ const OnePayment = (props) => {
 
         </div>
         <div className="comments-container">
-          {comments?.map((comment, i) =>
+          {commentsObj?.map((comment, i) =>
             <div key={i} className="comment">
               <div className="comment-content">
                 {comment.content}

@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAllRequests, deleteRequest } from "../../../store/request";
 import { postPayment } from "../../../store/payment";
+import { getUsers } from "../../../store/session";
 
 import './Notification.css';
 
-const Notification = (props) => {
+const Notification = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
-  const users = props.users;
+  const users = Object.values(useSelector(state => state.session))
   console.log('users from notification',users)
-  const allRequests = props.allRequests;
-  const sessionUser = props.sessionUser;
-
+  const allRequests = Object.values(useSelector(state => state.requestState))
+  const sessionUser = useSelector(state => state.session.user);
+  console.log('all request from notification',allRequests)
   useEffect(() => {
     (async() => {
       await dispatch(getAllRequests());
+      await dispatch(getUsers());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -54,7 +56,7 @@ const Notification = (props) => {
           {(request.receiver_id === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`${users[request.sender_id - 1]?.[request.sender_id ]} requests`}
+                {`${users[request.sender_id - 1]?.name} requests`}
               </div>
               <div className="requesting-amount">
                 {`$${request.amount}`}
@@ -66,7 +68,7 @@ const Notification = (props) => {
                 <button className="edit-btn" onClick={e => {
                   onCreatePayment(e,
                                   request.amount,
-                                  users[request.sender_id - 1]?.[request.sender_id],
+                                  users[request.sender_id - 1]?.name,
                                   request.receiver_id,
                                   request.title,
                                   request.privacy)

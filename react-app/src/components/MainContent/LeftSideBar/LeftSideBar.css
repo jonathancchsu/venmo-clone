@@ -35,7 +35,7 @@
 
 .left-side-bar {
   border-right: 1px solid #f7f7f7;
-  height: 100vh;
+  height: auto;
 }
 
 .incomplete {

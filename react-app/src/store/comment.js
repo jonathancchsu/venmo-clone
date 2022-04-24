@@ -74,31 +74,31 @@ export const deleteComment = comment_id => async(dispatch) => {
 }
 
 //------------------------------comments reducer---------------------------------
-const commentReducer = (state = { entries: {} }, action) => {
+const commentReducer = (state = {}, action) => {
   let newState = { ...state };
 
   switch(action.type) {
     case LOAD_COMMENTS:
       if (action.comments) {
         action.comments.comments.forEach(
-          (comment) => (newState.entries[comment.id] = comment)
+          (comment) => (newState[comment.id] = comment)
         );
       } else {
-        newState.entries = {}
+        newState = {}
       }
       return newState;
     case ADD_COMMENT: {
-      newState.entries[action.comment.id] = { ...action.comment };
+      newState[action.comment.id] = action.comment;
 
       return newState;
     }
     case UPDATE_COMMENT: {
-      newState.entries[action.comment.id] = { ...action.comment };
+      newState[action.comment.id] = action.comment;
 
       return newState;
     }
     case DELETE_COMMENT:
-      delete newState.entries[action.removedComment.id];
+      delete newState[action.removedComment.comment_id];
 
       return newState;
     default:
