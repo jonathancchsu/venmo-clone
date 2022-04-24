@@ -11,11 +11,13 @@ const OnePayment = () => {
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState([]);
+
   // const [edit, setEdit] = useState('');
   const [content, setContent] = useState('');
   const { paymentId } = useParams();
 
   const payment = useSelector(state => state.paymentState?.entries[0]);
+  // console.log('payment from one payment', payment)
   const sessionUser = useSelector(state => state.session.user);
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
@@ -44,8 +46,7 @@ const OnePayment = () => {
 
     if (content.length >= 1) {
       const data = await dispatch(postComment({ content, owner_id, payment_id }))
-        .then(() => setContent(''));
-
+        .then(() => setContent(''))
       if (data) {
         setErrors(data);
       }
@@ -66,7 +67,7 @@ const OnePayment = () => {
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    await dispatch(deleteComment(id))
+    await dispatch(deleteComment(id));
   }
 
   if (!loaded) {

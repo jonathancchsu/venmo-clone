@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllRequests } from "../../../store/request";
 
-import './Incomplete.css';
+import './Notification.css';
 
-const Incomplete = () => {
+const Notification = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [users, setUsers] = useState([]);
@@ -36,20 +36,20 @@ const Incomplete = () => {
     <div>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests">
-          {(request.receiver_id  === sessionUser.id) ?
+          {(request.sender_id === sessionUser.id) ?
             <div>
               <div className="requesting">
-                {`Request to ${users[request.sender_id - 1]?.name}`}
+                {`${users[request.receiver_id - 1]?.name} requests`}
               </div>
               <div className="requesting-amount">
-                {`$${request.amount}`}
+                {`$${request.amount}`} {`${request.receiver_id}`}
               </div>
               <div className="request-title">
                 {request.title}
               </div>
               <div className="request-btn">
                 <button className="edit-btn">
-                  edit
+                  send
                 </button>
                 <button className="cancel-btn">
                   cancel
@@ -59,10 +59,10 @@ const Incomplete = () => {
             :
             <div>
               <div>
-                Requests from you
+                Nontifications
               </div>
               <div>
-                Send your requests for money here while they're awaiting approval.
+                You can find things that require your attention here.
               </div>
             </div>
           }
@@ -71,4 +71,4 @@ const Incomplete = () => {
     </div>
   )
 }
-export default Incomplete;
+export default Notification;

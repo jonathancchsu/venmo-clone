@@ -64,6 +64,9 @@ function App() {
         <ProtectedRoute path='/incomplete' exact={true}>
           <MainContent way={'incomplete'} />
         </ProtectedRoute>
+        <ProtectedRoute path='/notification' exact={true}>
+          <MainContent way={'notification'} />
+        </ProtectedRoute>
         <Route path='/login'>
             <Redirect to='/' />
         </Route>

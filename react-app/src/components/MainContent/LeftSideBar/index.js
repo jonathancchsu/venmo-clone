@@ -41,6 +41,11 @@ const LeftSideBar = () => {
         </Link>
       </div>
       <div>
+        <Link className="notification" to='/notification'>
+          Notification
+        </Link>
+      </div>
+      <div>
         <LogOutButton />
       </div>
     </div>

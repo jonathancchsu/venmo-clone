@@ -9,6 +9,7 @@ import Home from './Home';
 import LeftSideBar from './LeftSideBar';
 import TransactionForm from './TransactionForm';
 import Incomplete from './Incomplete';
+import Notification from './Notofication';
 
 import './MainContent.css';
 
@@ -68,6 +69,19 @@ function MainContent({ way }) {
         </div>
         <div className='main-content'>
           <Incomplete />
+        </div>
+      </div>
+    )
+  };
+
+  if (way === 'notification') {
+    return (
+      <div className='main-container'>
+        <div className='left-side-bar'>
+          <LeftSideBar />
+        </div>
+        <div className='main-content'>
+          <Notification />
         </div>
       </div>
     )
