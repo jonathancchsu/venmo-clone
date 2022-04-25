@@ -9,15 +9,11 @@ import './Incomplete.css';
 const Incomplete = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  // const users = props.users;
-  // console.log('users from incomplete',users)
-
 
   const allRequests = Object.values(useSelector(state => state.requestState))
-  // console.log('all requests from incomplete',allRequests)
   const sessionUser = useSelector((state) => state.session.user)
   const users = Object.values(useSelector(state => state.session))
-  // console.log('users from incomplete', users)
+
   useEffect(() => {
     (async() => {
       await dispatch(getAllRequests());

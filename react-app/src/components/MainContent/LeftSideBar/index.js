@@ -6,7 +6,6 @@ import logo from '../../../img/venmo-logo.svg';
 import LogOutButton from '../../auth/LogoutButton';
 import solidColorLogo from '../../../img/solid-color-logo.png';
 import { getOneUser } from "../../../store/session";
-// import { login } from "../../../store/session";
 
 import './LeftSideBar.css';
 

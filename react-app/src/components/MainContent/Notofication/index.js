@@ -12,10 +12,9 @@ const Notification = () => {
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
   const users = Object.values(useSelector(state => state.session))
-  // console.log('users from notification',users)
   const allRequests = Object.values(useSelector(state => state.requestState))
   const sessionUser = useSelector(state => state.session.user);
-  // console.log('all request from notification',allRequests)
+
   useEffect(() => {
     (async() => {
       await dispatch(getAllRequests());
@@ -28,7 +27,6 @@ const Notification = () => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
-      // console.log('payment obj',{ amount, receiver_id, sender_id, title, privacy })
       await dispatch(postPayment({ amount, receiver_id, sender_id, title, privacy }))
       await dispatch(getOneUser(sessionUser.id))
         .then(() => {
