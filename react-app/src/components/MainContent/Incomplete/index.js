@@ -42,7 +42,7 @@ const Incomplete = () => {
   const handleEditAmount = async (e, id, privacy) => {
     e.preventDefault();
     // console.log({id, title, amount, privacy})
-    if(amount > 0) {
+    if(amount > 0 && isNaN(amount) && !validateDecimal(amount)) {
       await dispatch(updatingRequest({id, title, amount, privacy}));
       setEditAmount('');
     }
