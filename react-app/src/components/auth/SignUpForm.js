@@ -19,7 +19,10 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-      const data = await dispatch(signUp(username, email, name, password));
+      const data = await dispatch(signUp(username, email, name, password, repeatPassword));
+      // if (password !== repeatPassword) {
+      //   data.push(['Please match your password with confirmed password!'])
+      // }
       if (data) {
         setErrors(data)
         return
