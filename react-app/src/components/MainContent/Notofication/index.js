@@ -24,12 +24,12 @@ const Notification = () => {
     })();
   }, [dispatch]);
 
-  const onCreatePayment = async(e, amount, receiverName, sender_id, title, privacy) => {
+  const onCreatePayment = async(e, amount, receiver_id, sender_id, title, privacy) => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
-      // console.log('payment obj',{ amount, receiverName, sender_id, title, privacy })
-      await dispatch(postPayment({ amount, receiverName, sender_id, title, privacy }))
+      console.log('payment obj',{ amount, receiver_id, sender_id, title, privacy })
+      await dispatch(postPayment({ amount, receiver_id, sender_id, title, privacy }))
       await dispatch(getOneUser(sessionUser.id))
         .then(() => {
           history.push('/')
@@ -50,7 +50,7 @@ const Notification = () => {
   return (
     <div className="notification-page">
       <h3 className="notification-title">
-        <i class="far fa-bell"></i> Notifications
+        <i className="far fa-bell"></i> Notifications
       </h3>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests-container">
@@ -69,7 +69,7 @@ const Notification = () => {
                 <button className="edit-btn login-btn" onClick={e => {
                   onCreatePayment(e,
                                   request.amount,
-                                  users[request.sender_id - 1]?.name,
+                                  users[request.sender_id - 1]?.id,
                                   request.receiver_id,
                                   request.title,
                                   request.privacy)
