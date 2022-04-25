@@ -18,7 +18,7 @@ const OnePayment = (props) => {
   const { paymentId } = useParams();
 
   const payment = useSelector(state => state.paymentState)[paymentId];
-  console.log(payment)
+  // console.log(payment)
   const sessionUser = props.sessionUser;
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
@@ -45,7 +45,7 @@ const OnePayment = (props) => {
       const data = await dispatch(postComment({ newContent, owner_id, payment_id }))
         dispatch(getOnePayment(paymentId))
         .then(() => setNewContent(''))
-      console.log(data)
+      // console.log(data)
       if (data) {
         setErrors(data);
       }
@@ -54,11 +54,12 @@ const OnePayment = (props) => {
     }
   };
 
-  const handleEdit = (e, id) => {
+  const handleEdit = async (e, id) => {
     e.preventDefault();
 
     if (content.length > 0) {
-      const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
+      const data = await dispatch(updatingComment({ id, content, owner_id, payment_id }));
+      await dispatch(getOnePayment(paymentId));
       setContent('');
       setEditContent('');
       if (data) {
