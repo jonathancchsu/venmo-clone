@@ -91,7 +91,6 @@ const requestReducer = (state = {}, action) => {
       return newState;
     }
     case UPDATE_REQUEST: {
-      console.log(action.updatedRequest)
       newState[action.updatedRequest.id] = action.updatedRequest;
 
       return newState;

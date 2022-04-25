@@ -61,13 +61,11 @@ const TransactionForm = () => {
   // };
 
   return (
-    <div className='form-container'>
-      <div className='page-title'>
-        <p>
+    <div className='form-container transaction-form notification-page'>
+      <div className='page-title notification-title'>
           Venmo | Pay & Request
-        </p>
       </div>
-      <form className='form'>
+      <form className='trans-form'>
         {errors.length > 0 && (
           <div className="errors-container">
             {errors.map((error, ind) => (
@@ -76,6 +74,7 @@ const TransactionForm = () => {
           </div>
         )}
         <div className='amount'>
+          <div className='dollar-sign'> $ </div>
           <input
             type='number'
             step='0.01'
@@ -93,19 +92,21 @@ const TransactionForm = () => {
             name='receiverName'
             value={receiverName}
             onChange={e => setReceiverName(e.target.value)}
-            placeholder='Name'
+            placeholder='To: username'
             required={true}
+            className='receiver-input'
           ></input>
         </div>
         <div className='title'>
-          <input
+          <textarea
             type='text'
             name='title'
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder='Note'
             required={true}
-          ></input>
+            className='title-input'
+          ></textarea>
         </div>
         {/* <div className='privacy-container'>
           <select
@@ -132,14 +133,14 @@ const TransactionForm = () => {
         <div className='btn-container'>
           <button
             type='submit'
-            className='submit-btn'
+            className='pay-btn getVenmo btn trans-btn'
             onClick={onCreatePayment}
           >
             Payment
           </button>
           <button
             type='submit'
-            className='submit-btn'
+            className='pay-btn getVenmo btn trans-btn'
             onClick={onCreateRequest}
           >
             Request

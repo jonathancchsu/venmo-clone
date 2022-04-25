@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
-import { getComments ,postComment,  deleteComment } from "../../../store/comment";
-//updatingComment,
+import { getComments ,postComment, updatingComment, deleteComment } from "../../../store/comment";
+
 import { getUsers } from "../../../store/session";
 import './OnePayment.css';
 
@@ -11,23 +11,21 @@ import './OnePayment.css';
 const OnePayment = (props) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-
-  // const [comments, setComments] = useState([]);
   const [errors, setErrors] = useState([]);
-
-  // const [edit, setEdit] = useState('');
   const [content, setContent] = useState('');
+  const [newContent, setNewContent] = useState('');
+  const [editContent, setEditContent] = useState('');
   const { paymentId } = useParams();
 
   const payment = useSelector(state => state.paymentState)[paymentId];
-  // console.log('payment from one payment', payment)
+
   const sessionUser = props.sessionUser;
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
-  // const commentsObj = payment?.comments?.comments;
+
   const commentsObj = Object.values(useSelector(state => state.commentState))
   const users = Object.values(useSelector(state => state.session))
-  // console.log('users from one playment',users)
+
   useEffect(() => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
@@ -40,27 +38,34 @@ const OnePayment = (props) => {
   const handlePost = async (e) => {
     e.preventDefault();
 
-    if (content.length >= 1) {
-      const data = await dispatch(postComment({ content, owner_id, payment_id }))
+    if (newContent.length >= 1) {
+      const data = await dispatch(postComment({ newContent, owner_id, payment_id }))
         dispatch(getOnePayment(paymentId))
-        .then(() => setContent(''))
+        .then(() => setNewContent(''))
+      console.log(data)
+      if (data) {
+        setErrors(data);
+      }
+    } else {
+      alert('Please input a comment!');
+    }
+  };
+
+  const handleEdit = (e, id) => {
+    e.preventDefault();
+
+    if (content.length > 0) {
+      const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
+      setContent('');
+      setEditContent('');
       if (data) {
         setErrors(data);
       }
     }
+    if (content.length < 1) {
+      alert('Please input a comment!');
+    }
   };
-
-  // const handleEdit = (e, id) => {
-  //   e.preventDefault();
-
-  //   if (content.length >= 1) {
-  //     const data = dispatch(updatingComment({ id, content, owner_id, payment_id }));
-  //     setContent('');
-  //     if (data) {
-  //       setErrors(data);
-  //     }
-  //   }
-  // };
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
@@ -75,9 +80,6 @@ const OnePayment = (props) => {
       date.push(data[i]);
     };
     let monthDay = date.join(' ');
-    // let md = monthDay.split(',');
-    // let d = md.join(' ');
-    // return d;
     return monthDay;
   })
 
@@ -144,19 +146,40 @@ const OnePayment = (props) => {
               <div className='comment-date date'>
                 {getDate(comment.created_at)}
               </div>
-              <div className="comment-content request-title">
+              {editContent === comment.id ?
+                <div className="comment-content request-title">
+                  <input
+                    type='string'
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
+                    placeholder='Write a comment...'
+                    className="comment-input"
+                    required
+                  ></input>
+                  <button className='editing-btn' onClick={e => handleEdit(e, comment.id)}>
+                    <i className="far fa-check-circle"></i>
+                  </button>
+                  <button className='editing-btn' onClick={() => setEditContent('')}>
+                    <i className="fas fa-ban"></i>
+                  </button>
+                </div>
+                :
+                <div className="comment-content request-title">
                 {comment.content}
               </div>
-                {comment.owner_id === sessionUser.id ?
-                  <div className="comments-btns">
-                    <button className="comments-btn"><i className="fas fa-edit"></i></button>
-                    <button onClick={e => handleDelete(e, comment.id)} className="comments-btn">
+              }
+              {comment.owner_id === sessionUser.id && editContent !== comment.id ?
+                <div className="comments-btns">
+                  <button className="comments-btn" onClick={e => {setEditContent(comment.id); setContent(comment.content)}}>
+                    <i className="fas fa-edit"></i>
+                  </button>
+                  <button onClick={e => handleDelete(e, comment.id)} className="comments-btn">
                     <i className="fas fa-trash-alt fa-edit"></i>
-                    </button>
-                  </div>
-                  :
-                  <></>
-                }
+                  </button>
+                </div>
+                :
+                <></>
+              }
             </div>
           )}
         </div>
@@ -164,10 +187,11 @@ const OnePayment = (props) => {
         <form>
           <input
             type="text"
-            value={content}
-            onChange={e => setContent(e.target.value)}
+            value={newContent}
+            onChange={e => setNewContent(e.target.value)}
             placeholder="Write a comment..."
             className="comment-input"
+            required
           ></input>
           <button
             type="submit"

@@ -17,7 +17,7 @@ def comments_get_post(payment_id):
     comment = Comment(
       owner_id=data['owner_id'],
       payment_id=data['payment_id'],
-      content=data['content'],
+      content=data['newContent'],
     )
     db.session.add(comment)
     db.session.commit()
