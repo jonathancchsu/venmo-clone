@@ -96,7 +96,7 @@ const TransactionForm = () => {
     e.preventDefault();
 
     if (amount > 0 && title.length > 0 && !isNaN(amount) && validateDecimal(amount) && usersList.indexOf(receiverName) >= 0) {
-      const data = await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
+      await dispatch(postRequest({ amount, receiverName, sender_id, title, privacy }))
         .then(dispatch(getOneUser(sender_id)))
         .then(
           history.push(`/`)
