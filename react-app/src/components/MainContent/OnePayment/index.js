@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOnePayment } from "../../../store/payment";
 import { useParams } from "react-router-dom";
-import { getComments ,postComment, updatingComment, deleteComment } from "../../../store/comment";
+import { postComment, updatingComment, deleteComment } from "../../../store/comment";
 
 import { getUsers } from "../../../store/session";
 import './OnePayment.css';
@@ -18,18 +18,21 @@ const OnePayment = (props) => {
   const { paymentId } = useParams();
 
   const payment = useSelector(state => state.paymentState)[paymentId];
-
+  console.log(payment)
   const sessionUser = props.sessionUser;
   const owner_id = sessionUser?.id;
   const payment_id = payment?.id;
+  // console.log('paymentId',payment_id)
 
-  const commentsObj = Object.values(useSelector(state => state.commentState))
+  // const commentsObj = Object.values(useSelector(state => state.commentState))
+  // console.log(commentsObj)
+  const commentsObj = payment?.comments.comments
   const users = Object.values(useSelector(state => state.session))
 
   useEffect(() => {
     (async() => {
       await dispatch(getOnePayment(paymentId));
-      await dispatch(getComments(paymentId));
+      // await dispatch(getComments(paymentId));
       await dispatch(getUsers());
       return setLoaded(true);
     })();
