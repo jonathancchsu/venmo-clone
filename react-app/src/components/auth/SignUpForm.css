@@ -1,6 +1,9 @@
 .getvenmo {
   padding-bottom: 300px;
-  padding-top: 90px;
+  padding-top:150px;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .signup {
@@ -9,6 +12,15 @@
 }
 
 .sign-in-errors {
-  margin-top: -16px;
-  margin-left: 5px;
+  font-size: 12px;
+}
+.sign-up-error-div {
+  margin-left: 160px;
+  top: 30px;
+  background-color: #f7f7f7;
+  padding-bottom: -20px;
+}
+
+.form-container {
+  background-color: #f7f7f7;
 }
