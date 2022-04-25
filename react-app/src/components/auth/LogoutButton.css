@@ -1,0 +1,8 @@
+.logout {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-sign-out-alt {
+  padding-right: 3px;
+}

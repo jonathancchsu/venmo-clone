@@ -47,13 +47,23 @@ const LeftSideBar = () => {
       </div>
       <div className="side-btn">
         <Link className="incomplete" to='/incomplete'>
-          Incomplete
+          <i className="fas fa-spinner"></i> Incomplete
         </Link>
       </div>
       <div className="side-btn">
         <Link className="notification" to='/notification'>
-          Notification
+        <i className="far fa-bell"></i> Notifications
         </Link>
+      </div>
+      <div className="side-btn">
+      <a href="https://github.com/jonathancchsu" className="incomplete">
+        <i className="fab fa-github"></i> GitHub
+      </a>
+      </div>
+      <div className="side-btn">
+      <a href="https://www.linkedin.com/in/jonathancchsu/" className="incomplete">
+      <i className="fab fa-linkedin"></i> LinkedIn
+      </a>
       </div>
       <div>
         <LogOutButton />

@@ -63,10 +63,10 @@ const SignUpForm = () => {
           <h2 className='sign-in-text'>
             Get Venmo
           </h2>
-          <div className='form getvenmo'>
-              <div className='error-div'>
+          <div className='form getvenmo '>
+              <div className='error-div '>
                 {errors.map((error, ind) => (
-                  <div key={ind} className='errors'>{error}</div>
+                  <div key={ind} className='errors sign-in-errors'>{error}</div>
                 ))}
               </div>
             <form onSubmit={onSignUp}>

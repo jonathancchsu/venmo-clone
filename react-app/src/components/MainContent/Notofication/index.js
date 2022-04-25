@@ -50,7 +50,7 @@ const Notification = () => {
   return (
     <div className="notification-page">
       <h3 className="notification-title">
-        Notifications
+        <i class="far fa-bell"></i> Notifications
       </h3>
       {allRequests?.map((request, i) =>
         <div key={i} className="requests-container">

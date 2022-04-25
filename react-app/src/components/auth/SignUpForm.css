@@ -1,8 +1,14 @@
 .getvenmo {
-  padding-bottom: 250px;
+  padding-bottom: 300px;
+  padding-top: 90px;
 }
 
 .signup {
   padding: 10px;
   font-size: 16px;
+}
+
+.sign-in-errors {
+  margin-top: -16px;
+  margin-left: 5px;
 }

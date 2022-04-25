@@ -85,7 +85,7 @@ const Home = () => {
               </div>
               <div className='comment-icon'>
                 <Link to={`/story/${payment.id}`} className='comment-link'>
-                  {(payment.comments.comments.length >= 1) ?
+                  {(payment.comments.comments.length > 0) ?
                     <div className='comment-length'>
                       <i className="fas fa-comment blue"></i>
                       <p className='num'>{payment.comments.comments.length}</p>

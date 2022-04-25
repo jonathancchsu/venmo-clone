@@ -63,7 +63,7 @@ const Incomplete = () => {
   return (
     <div className="incomplete-container">
       <h3 className="notification-title">
-        Incomplete
+        <i className="fas fa-spinner"></i> Incomplete
       </h3>
       {allRequests?.map((request, i) =>
         <div key={i}>
