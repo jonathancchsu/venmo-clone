@@ -148,7 +148,7 @@ Welcome to the **[Venmo Clone](https://venmo-clone.herokuapp.com/)** repo, this 
 ![Screen Shot 2022-04-25 at 6 08 46 AM](https://user-images.githubusercontent.com/92463844/165070642-558c7795-d4d7-4bca-9c7b-2cd07b5e57ae.png)
 
 # Code Snippets
-One of the core function of this web application to to send money to each other, therefore, in order to make this trasaction fast and efficient, one simple function call, posting payment api, would automatically deduct the funds of payment sender and add the funds to the payment receiver. 
+One of the core functions of this web application is to send money to each other. Therefore, to make this trasaction fast and efficient, there is one function call, posting payment api, that would automatically deduct the funds of payment sender and add the funds to the payment receiver. 
 
   ```bash
   if request.method == 'POST':
