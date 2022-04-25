@@ -28,7 +28,7 @@ const Notification = () => {
     e.preventDefault();
 
     if (title.length >= 1 && amount > 0) {
-      console.log('payment obj',{ amount, receiver_id, sender_id, title, privacy })
+      // console.log('payment obj',{ amount, receiver_id, sender_id, title, privacy })
       await dispatch(postPayment({ amount, receiver_id, sender_id, title, privacy }))
       await dispatch(getOneUser(sessionUser.id))
         .then(() => {

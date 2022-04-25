@@ -69,7 +69,7 @@ const LeftSideBar = () => {
         <LogOutButton />
       </div>
       {window.location.href.split('/')[3] !=='pay' ?
-        <Link className="pay-btn getVenmo btn" to='/pay'>
+        <Link className="pay-btn getVenmo btn no-change-color" to='/pay'>
           <img src={solidColorLogo} className='solid-color-logo' alt='solid-color-logo'/>
           Pay or Request
         </Link>

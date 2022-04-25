@@ -31,23 +31,45 @@ const Incomplete = () => {
   const [amount, setAmount] = useState('');
   const [title, setTitle] = useState('');
 
+  function validateDecimal(decimalValue) {
+
+    var rx = /^\d+(?:\.\d{1,2})?$/
+
+    if(rx.test(decimalValue)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   const handleEditAmount = async (e, id, privacy) => {
     e.preventDefault();
-    console.log({id, title, amount, privacy})
+    // console.log({id, title, amount, privacy})
     if(amount > 0) {
       await dispatch(updatingRequest({id, title, amount, privacy}));
       setEditAmount('');
-
+    }
+    if (amount <= 0) {
+      alert('Please provide a valid number!');
+    }
+    if (isNaN(amount)) {
+      alert('Please provide a valid number!');
+    }
+    if (!validateDecimal(amount)) {
+      alert('Please provide a valid number!');
     }
   }
 
   const handleEditTitle = async (e, id, privacy) => {
     e.preventDefault();
     console.log({id, title, amount, privacy})
-    if(title.length >= 1) {
+    if(title.length > 0) {
       await dispatch(updatingRequest({id, title, amount, privacy}));
       setEditTitle('');
-
+    }
+    if (title.length <= 0) {
+      alert("Please input a title for your request!");
     }
   }
 
