@@ -28,10 +28,10 @@ const Notification = () => {
 
     if (title.length >= 1 && amount > 0) {
       await dispatch(postPayment({ amount, receiver_id, sender_id, title, privacy }))
+      .then(() => {
+        history.push('/')
+      });
       await dispatch(getOneUser(sessionUser.id))
-        .then(() => {
-          history.push('/')
-        });
     }
 
   };
