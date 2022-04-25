@@ -15,8 +15,8 @@ const Home = () => {
 
   const allPayments = Object.values(useSelector(state => state.paymentState));
   const sessionUser = useSelector(state => state.session.user);
-  console.log(sessionUser)
-  console.log(allPayments)
+  // console.log(sessionUser)
+  // console.log(allPayments)
   // useEffect(() => {
   //   async function fetchData() {
   //     const response = await fetch('/api/users/');
@@ -47,10 +47,11 @@ const Home = () => {
     for (let i = 2; i > 0; i--) {
       date.push(data[i]);
     };
-    let monthDay = date.join();
-    let md = monthDay.split(',');
-    let d = md.join(' ');
-    return d;
+    let monthDay = date.join(' ');
+    // let md = monthDay.split(',');
+    // let d = md.join(' ');
+    // return d;
+    return monthDay;
   })
 
   if (!loaded) {

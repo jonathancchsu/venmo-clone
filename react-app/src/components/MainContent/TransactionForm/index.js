@@ -15,7 +15,8 @@ const TransactionForm = () => {
   const [amount, setAmount] = useState(0);
   const [receiverName, setReceiverName] = useState('');
   const [title, setTitle] = useState('');
-  const [privacy, setPrivacy] = useState('public');
+  // const [privacy, setPrivacy] = useState('public');
+  const privacy = 'public';
 
   const onCreatePayment = async(e) => {
     e.preventDefault();
@@ -106,7 +107,7 @@ const TransactionForm = () => {
             required={true}
           ></input>
         </div>
-        <div className='privacy-container'>
+        {/* <div className='privacy-container'>
           <select
             className='privacy-select'
             value={privacy}
@@ -127,7 +128,7 @@ const TransactionForm = () => {
               <p>This info can be viewed by the sender and recipient only</p>
             )}
           </div>
-        </div>
+        </div> */}
         <div className='btn-container'>
           <button
             type='submit'

@@ -49,7 +49,7 @@ const Notification = () => {
 
   return (
     <div>
-      <h3>
+      <h3 className="notification-title">
         Notifications
       </h3>
       {allRequests?.map((request, i) =>

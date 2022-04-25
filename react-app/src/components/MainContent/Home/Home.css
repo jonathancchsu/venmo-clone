@@ -49,6 +49,10 @@
   padding-top: 15px;
 }
 
+.num {
+  color: #0074de;
+}
+
 .fa-comment{
   height: 30px;
   width: 30px;

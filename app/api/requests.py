@@ -34,12 +34,13 @@ def request_get_post():
 def request_put_delete(request_id):
   if request.method == 'PUT':
     data = request.json
+    print(data)
     request_data = Request.query.get(data['id'])
     request_data.title=data['title']
     request_data.amount=data['amount']
     request_data.privacy=data['privacy']
     db.session.commit()
-    return request.to_dict()
+    return request_data.to_dict()
 
   if request.method == 'DELETE':
     request_data = Request.query.get(request_id)

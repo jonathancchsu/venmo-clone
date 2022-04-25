@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRequests, deleteRequest } from "../../../store/request";
-//updatingRequest,
+import { getAllRequests, updatingRequest, deleteRequest } from "../../../store/request";
+
 import { getUsers } from "../../../store/session";
 
 import './Incomplete.css';
@@ -11,7 +11,7 @@ const Incomplete = () => {
   const [loaded, setLoaded] = useState(false);
   // const users = props.users;
   // console.log('users from incomplete',users)
-  // const [content, setContent] = useState('');
+
 
   const allRequests = Object.values(useSelector(state => state.requestState))
   // console.log('all requests from incomplete',allRequests)
@@ -26,17 +26,30 @@ const Incomplete = () => {
     })();
   }, [dispatch]);
 
-  // const handleEdit = async (e, id, owner_id, payment_id) => {
-  //   e.preventDefault();
+  const [editTitle, setEditTitle] = useState('');
+  const [editAmount, setEditAmount] = useState('');
+  const [amount, setAmount] = useState('');
+  const [title, setTitle] = useState('');
 
-  //   if(content.length >= 1) {
-  //     const data = await dispatch(updatingRequest({id, content, owner_id, payment_id}));
-  //     setContent('');
-  //   }
-  //   if (data) {
-  //     setErrors(data);
-  //   }
-  // }
+  const handleEditAmount = async (e, id, privacy) => {
+    e.preventDefault();
+    console.log({id, title, amount, privacy})
+    if(amount > 0) {
+      await dispatch(updatingRequest({id, title, amount, privacy}));
+      setEditAmount('');
+
+    }
+  }
+
+  const handleEditTitle = async (e, id, privacy) => {
+    e.preventDefault();
+    console.log({id, title, amount, privacy})
+    if(title.length >= 1) {
+      await dispatch(updatingRequest({id, title, amount, privacy}));
+      setEditTitle('');
+
+    }
+  }
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
@@ -59,16 +72,67 @@ const Incomplete = () => {
               <div className="requesting">
                 {`Request to ${users[request?.receiver_id - 1]?.name}`}
               </div>
-              <div className="requesting-amount">
-                {`$${request.amount}`}
-              </div>
-              <div className="request-title">
-                {request.title}
-              </div>
+              {editAmount === request.id ?
+                <div className="amount-container">
+                  <input
+                    type='string'
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    placeholder='0.00'
+                  ></input>
+                  <button className='edit-btn' onClick={e => {setTitle(request.title);
+                  handleEditAmount(
+                    e, request.id, request.privacy
+                  );}}>
+                    Save Edit
+                  </button>
+                  <button className='edit-btn' onClick={() => setEditAmount('')}>
+                    Cancel Edit
+                  </button>
+                </div>
+                :
+                <div className='amount-container'>
+                  <div className="amount">
+                    {`$${request.amount}`}
+                  </div>
+                  {sessionUser.id === request.sender_id &&
+                    <div className="edit-btn" onClick={(e) => {setEditAmount(request.id)}}>
+                      Edit Request
+                    </div>
+                  }
+                </div>
+              }
+              {editTitle === request.id ?
+                <div className="amount-container">
+                  <input
+                    type='string'
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    placeholder='notes'
+                  ></input>
+                  <button className='edit-btn' onClick={e => {setAmount(request.amount);
+                    handleEditTitle(
+                    e, request.id, request.privacy
+                  )}}>
+                    Save Edit
+                  </button>
+                  <button className='edit-btn' onClick={() => setEditTitle('')}>
+                    Cancel Edit
+                  </button>
+                </div>
+                :
+                <div className='amount-container'>
+                  <div className="amount">
+                    {`${request.title}`}
+                  </div>
+                  {sessionUser.id === request.sender_id &&
+                    <div className="edit-btn" onClick={(e) => {setEditTitle(request.id)}}>
+                      Edit Request
+                    </div>
+                  }
+                </div>
+              }
               <div className="request-btn">
-                <button className="edit-btn">
-                  edit
-                </button>
                 <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>
                   cancel
                 </button>
