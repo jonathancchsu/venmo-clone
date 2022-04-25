@@ -1,0 +1,57 @@
+.hide-show {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-edit {
+  padding-top: -10px;
+  color: #979797;
+}
+
+.edit-icon {
+  padding-left: 10px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.incomplete-amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide:hover {
+  cursor:pointer;
+}
+
+.incomplete-input-amount {
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 5px;
+}
+
+.incomplete-input-title {
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  padding: 5px;
+}
+
+.incomplete-container {
+  height: 100vh;
+}
+
+.editing-btn {
+  background-color: white;
+  border: none;
+  height: 10px;
+  width: 10px;
+  padding: 13px;
+}
+
+.editing-btn:hover {
+  cursor: pointer;
+}

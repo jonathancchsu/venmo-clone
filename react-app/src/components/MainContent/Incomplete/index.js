@@ -61,43 +61,44 @@ const Incomplete = () => {
   };
 
   return (
-    <div>
-      <h3>
+    <div className="incomplete-container">
+      <h3 className="notification-title">
         Incomplete
       </h3>
       {allRequests?.map((request, i) =>
-        <div key={i} className="requests">
+        <div key={i}>
           {(request?.sender_id  === sessionUser?.id) ?
-            <div>
+            <div className="requests">
               <div className="requesting">
                 {`Request to ${users[request?.receiver_id - 1]?.name}`}
               </div>
               {editAmount === request.id ?
-                <div className="amount-container">
-                  <input
+                <div className="requesting-amount">
+                  $<input
                     type='string'
                     value={amount}
                     onChange={e => setAmount(e.target.value)}
                     placeholder='0.00'
+                    className="incomplete-input-amount"
                   ></input>
-                  <button className='edit-btn' onClick={e => {setTitle(request.title);
+                  <button className='editing-btn' onClick={e => {setTitle(request.title);
                   handleEditAmount(
                     e, request.id, request.privacy
                   );}}>
-                    Save Edit
+                    <i className="far fa-check-circle"></i>
                   </button>
-                  <button className='edit-btn' onClick={() => setEditAmount('')}>
-                    Cancel Edit
+                  <button className='editing-btn' onClick={() => setEditAmount('')}>
+                    <i className="fas fa-ban"></i>
                   </button>
                 </div>
                 :
-                <div className='amount-container'>
-                  <div className="amount">
+                <div className='amount-container hide-show'>
+                  <div className="requesting-amount incomplete-amount">
                     {`$${request.amount}`}
                   </div>
                   {sessionUser.id === request.sender_id &&
-                    <div className="edit-btn" onClick={(e) => {setEditAmount(request.id)}}>
-                      Edit Request
+                    <div className="edit-icon hide" onClick={(e) => {setEditAmount(request.id); setAmount(request.amount)}}>
+                      <i className="fas fa-edit"></i>
                     </div>
                   }
                 </div>
@@ -109,32 +110,33 @@ const Incomplete = () => {
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     placeholder='notes'
+                    className="incomplete-input-title"
                   ></input>
-                  <button className='edit-btn' onClick={e => {setAmount(request.amount);
+                  <button className='editing-btn' onClick={e => {setAmount(request.amount);
                     handleEditTitle(
                     e, request.id, request.privacy
                   )}}>
-                    Save Edit
+                    <i className="far fa-check-circle"></i>
                   </button>
-                  <button className='edit-btn' onClick={() => setEditTitle('')}>
-                    Cancel Edit
+                  <button className='editing-btn' onClick={() => setEditTitle('')}>
+                    <i className="fas fa-ban"></i>
                   </button>
                 </div>
                 :
-                <div className='amount-container'>
-                  <div className="amount">
+                <div className='amount-container hide-show'>
+                  <div className="request-title">
                     {`${request.title}`}
                   </div>
                   {sessionUser.id === request.sender_id &&
-                    <div className="edit-btn" onClick={(e) => {setEditTitle(request.id)}}>
-                      Edit Request
+                    <div className="edit-icon hide" onClick={(e) => {setEditTitle(request.id); setTitle(request.title)}}>
+                      <i className="fas fa-edit"></i>
                     </div>
                   }
                 </div>
               }
               <div className="request-btn">
-                <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>
-                  cancel
+                <button className="edit-btn login-btn cancel-btn" onClick={e => handleDelete(e, request.id)}>
+                  Cancel
                 </button>
               </div>
             </div>

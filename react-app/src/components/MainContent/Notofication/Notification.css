@@ -8,4 +8,51 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  border: 2px solid #f7f7f780;
+  width: 90vh;
+  border-radius: 20px;
+  padding-bottom: 20px;
+  height: 20vh;
+  box-shadow: #f7f7f777 5px 5px 0px 0px;
+  margin-bottom: 5px;
+}
+
+.requesting {
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.edit-btn {
+  height: 40px;
+  width: 140px;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 25px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.cancel-btn {
+  border: 2px solid #b7b7b74f;
+  background-color: white;
+  color: #3d95ce;
+}
+
+.requesting-amount {
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 15px;
+}
+
+.request-title {
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  padding-left: 15px;
+}
+
+.notification-page {
+  height: 100vh;
 }

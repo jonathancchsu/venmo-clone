@@ -48,14 +48,14 @@ const Notification = () => {
   };
 
   return (
-    <div>
+    <div className="notification-page">
       <h3 className="notification-title">
         Notifications
       </h3>
       {allRequests?.map((request, i) =>
-        <div key={i} className="requests">
+        <div key={i} className="requests-container">
           {(request.receiver_id === sessionUser.id) ?
-            <div>
+            <div className="requests">
               <div className="requesting">
                 {`${users[request.sender_id - 1]?.name} requests`}
               </div>
@@ -66,7 +66,7 @@ const Notification = () => {
                 {request.title}
               </div>
               <div className="request-btn">
-                <button className="edit-btn" onClick={e => {
+                <button className="edit-btn login-btn" onClick={e => {
                   onCreatePayment(e,
                                   request.amount,
                                   users[request.sender_id - 1]?.name,
@@ -76,10 +76,10 @@ const Notification = () => {
                   handleDelete(e, request.id)
                   }
                 }>
-                  send
+                  Send
                 </button>
-                <button className="cancel-btn" onClick={e => handleDelete(e, request.id)}>
-                  cancel
+                <button className="edit-btn login-btn cancel-btn" onClick={e => handleDelete(e, request.id)}>
+                  Cancel
                 </button>
               </div>
             </div>
