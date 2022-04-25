@@ -65,4 +65,6 @@
 
 .trans-btn:hover {
   cursor: pointer;
+  background-color: #3b91cb;
+  border: #3b91cb;
 }

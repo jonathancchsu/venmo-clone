@@ -49,3 +49,9 @@
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+.splashbtn:hover {
+  cursor: pointer;
+  background-color: #3b91cb;
+  border: #3b91cb;
+}

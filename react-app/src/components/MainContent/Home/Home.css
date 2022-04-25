@@ -53,6 +53,12 @@
   color: #0074de;
 }
 
+.num:hover {
+  cursor: pointer;
+  color: #3b91cb;
+  border: #3b91cb;
+}
+
 .fa-comment{
   height: 30px;
   width: 30px;

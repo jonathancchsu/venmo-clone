@@ -55,6 +55,12 @@
   position: relative;
 }
 
+.getVenmo:hover {
+  cursor: pointer;
+  background-color: #3b91cb;
+  border: #3b91cb;
+}
+
 .getVenmo {
   background-color: #0074de;
   border: 2.25px solid #0074de;
