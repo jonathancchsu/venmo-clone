@@ -9,7 +9,7 @@ export const addLike = (like) => ({
 });
 
 export const postLike = (like) => async (dispatch) => {
-  const res = await csrfFetch(`/api/likes/${like.id}`, {
+  const res = await csrfFetch(`/api/likes/`, {
     method: "POST",
     body: JSON.stringify(like)
   });
@@ -31,7 +31,7 @@ export const deleteLike = like_id => async (dispatch) => {
   });
   const likeNum = await res.json();
 
-  dispatch(removeLike(commentNum));
+  dispatch(removeLike(likeNum));
 }
 
 //------------------------------delete like---------------------------------
