@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { getAllPayments } from '../../../store/payment'
 import { getUsers } from '../../../store/session';
-import { postLike, deleteLike } from '../../../store/like';
+// import { postLike, deleteLike } from '../../../store/like';
 
 import './Home.css'
 
