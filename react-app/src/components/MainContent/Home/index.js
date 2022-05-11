@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { getAllPayments } from '../../../store/payment'
 import { getUsers } from '../../../store/session';
+import { postLike, deleteLike } from '../../../store/like';
 
 import './Home.css'
 
@@ -11,27 +12,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const users = Object.values(useSelector(state => state.session));
-  // const [usersObj, setUsersObj] = useState([]);
 
   const allPayments = Object.values(useSelector(state => state.paymentState));
   const sessionUser = useSelector(state => state.session.user);
-  // console.log(sessionUser)
-  // console.log(allPayments)
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await fetch('/api/users/');
-  //     const responseData = await response.json();
-  //     return setUsersObj(responseData?.users);
-  //   }
-  //   fetchData();
-  // }, []);
-
-  // usersObj.forEach((user, i) => {
-  //   let userObj = {};
-  //   userObj[user.id] = user.name;
-  //   users.push(userObj).reverse();
-  // })
-  // console.log(users)
 
   useEffect(() => {
     (async() => {
@@ -48,9 +31,6 @@ const Home = () => {
       date.push(data[i]);
     };
     let monthDay = date.join(' ');
-    // let md = monthDay.split(',');
-    // let d = md.join(' ');
-    // return d;
     return monthDay;
   })
 
@@ -94,6 +74,16 @@ const Home = () => {
                     <i className="fas fa-comment black"></i>
                   }
                 </Link>
+                <div>
+                  {(payment.likes.likes.length > 0) ?
+                  <div className='comment-length'>
+                    <i className="fas fa-heart red"></i>
+                    <p className='numred'>{payment.likes.likes.length}</p>
+                  </div>
+                  :
+                  <i class="fas fa-heart black"></i>
+                  }
+                </div>
               </div>
             </div>
             <div className='amount-container'>

@@ -45,12 +45,23 @@
   padding-top: 8px;
 }
 
+.red {
+  color: #e63b69;
+  padding-top: 8px;
+}
+
 .comment-icon {
   padding-top: 15px;
+  display: flex;
+  flex-direction: row;
 }
 
 .num {
   color: #0074de;
+}
+
+.numred {
+  color: #e63b69;
 }
 
 .num:hover {
@@ -60,6 +71,11 @@
 }
 
 .fa-comment{
+  height: 30px;
+  width: 30px;
+}
+
+.fa-heart {
   height: 30px;
   width: 30px;
 }
@@ -92,6 +108,7 @@
 .comment-length {
   display: flex;
   flex-direction: row;
+  align-content: space-between;
   font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
 }

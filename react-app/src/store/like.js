@@ -31,7 +31,7 @@ export const deleteLike = like_id => async (dispatch) => {
   });
   const likeNum = await res.json();
 
-  dispatch(removeLike(commentNum));
+  dispatch(removeLike(likeNum));
 }
 
 //------------------------------delete like---------------------------------

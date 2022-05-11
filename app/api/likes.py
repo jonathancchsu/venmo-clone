@@ -18,7 +18,7 @@ def likes_post():
 
 @bp.route('/<int:like_id>', methods=['DELETE'])
 def likes_delete(like_id):
-  like = Like.query.get(like_id)
-  db.session.delete(like)
+  request_data = Like.query.get(like_id)
+  db.session.delete(request_data)
   db.session.commit()
   return {'like_id': like_id}
