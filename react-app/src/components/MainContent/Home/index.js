@@ -77,11 +77,11 @@ const Home = () => {
                 <div>
                   {(payment.likes.likes.length > 0) ?
                   <div className='comment-length'>
-                    <i className="fas fa-heart red"></i>
+                    <i className="fas fa-heart red fa-lg"></i>
                     <p className='numred'>{payment.likes.likes.length}</p>
                   </div>
                   :
-                  <i class="fas fa-heart black"></i>
+                  <i class="fas fa-heart blackh"></i>
                   }
                 </div>
               </div>

@@ -38,6 +38,11 @@
 
 .black {
   color: #2F3033;
+  margin-right: 14px;
+}
+
+.blackh {
+  margin-bottom: 10px;
 }
 
 .blue {
@@ -58,26 +63,28 @@
 
 .num {
   color: #0074de;
+  padding-right: 10px;
 }
 
 .numred {
   color: #e63b69;
 }
 
-.num:hover {
+.num.numred:hover {
   cursor: pointer;
   color: #3b91cb;
   border: #3b91cb;
 }
 
 .fa-comment{
-  height: 30px;
-  width: 30px;
+  /* height: 30px;
+  width: 30px; */
+  padding-right: 5px;
 }
 
 .fa-heart {
-  height: 30px;
-  width: 30px;
+  padding-top: 12px;
+  padding-right: 5px;
 }
 
 .payment-title {
@@ -108,7 +115,7 @@
 .comment-length {
   display: flex;
   flex-direction: row;
-  align-content: space-between;
+  /* align-content: space-between; */
   font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
 }
