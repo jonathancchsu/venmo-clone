@@ -5,13 +5,8 @@ from app.forms import LoginForm, PaymentlForm, RequestForm, SignUpForm
 
 
 bp = Blueprint('likes', __name__)
-@bp.route('/payments/<int:payment_id>', methods=['GET', 'POST'])
-def likes(payment_id):
-  if request.method == 'GET':
-    likes = Like.query.filter(Like.payment_id == payment_id).all()
-    return {'likes': [like.to_dict() for like in likes]}
-    
-  if request.method == 'POST':
+@bp.route('/', methods=['POST'])
+def likes_post():
     data = request.json
     like = Like(
       user_id=data['user_id'],
