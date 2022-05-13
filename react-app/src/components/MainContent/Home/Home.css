@@ -115,7 +115,6 @@
 .comment-length {
   display: flex;
   flex-direction: row;
-  /* align-content: space-between; */
   font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
 }
